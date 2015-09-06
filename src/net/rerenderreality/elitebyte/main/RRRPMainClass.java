@@ -30,8 +30,6 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import pw.prok.imagine.util.Array;
-
 
 public class RRRPMainClass extends JavaPlugin implements Listener {
 
@@ -139,8 +137,8 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		   break;
 		   
 	   case "bbb" :
-		   if (p.hasPermission("rrrp.bigbertha.announce")) {
-			   if (args[0] != null) {
+		   if (p.hasPermission("rrrp.bigbertha.broadcast")) {
+			   if (args[0].length() != 0) {
 				   BigBerthaActions.berthaBroadcast(combineArgs(args));
 			   }
 			   
