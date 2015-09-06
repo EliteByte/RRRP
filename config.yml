@@ -1,0 +1,11 @@
+## Logic Config  
+ranks:
+  woodrank:
+    rankPerkExplosionRadius: 1  
+    rankPerkMaterial: WOOD 
+
+
+## PlayerData Config
+
+
+
