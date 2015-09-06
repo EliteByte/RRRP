@@ -1,0 +1,34 @@
+name: Re-RenderRealityPlugin
+main: net.rerenderreality.elitebyte.main.RRRPMainClass
+version: 1.0
+author: EliteByte
+
+commands:        
+  cb:
+    description: Code Black! Server Shut down mode.
+    aliases: [codeblack] 
+  devmode:
+    description: Bypasses the plugin's cool-downs
+  sudoc:
+    description: Make someone run another cmd. 
+  iteminfo:
+    description: Gives information about the item in your hand. 
+    aliases: [ii, iinfo, itemi]
+  deathhunt:
+    description: Do "/deathhunt help" to view all deathhunt commands
+    aliases: [dh, deathh, dhunt]   
+  reloadrrrp:
+    description: Reloads the RRRP Congfigs.
+    aliases: [rrrrp]
+  rankperk:
+    description: Receive your perk that is given by your Rank
+  rrrp:
+    description: Re-RenderReality Plugin Command List
+  devmode:
+    description: Bypass various feature restrictions/limitations *Use Cautiously*
+  bblist:
+    aliases: [bbl, bigberthalist, bigbl]
+    description: Bypass various feature restrictions/limitations *Use Cautiously*
+  bbb:
+    aliases: [bigberthbroadcast, bbbroadcast]
+    description: (b.b.b) Big Bertha Broadcast.
