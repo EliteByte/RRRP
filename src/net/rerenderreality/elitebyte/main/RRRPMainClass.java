@@ -30,6 +30,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import pw.prok.imagine.util.Array;
+
 
 public class RRRPMainClass extends JavaPlugin implements Listener {
 
@@ -139,7 +141,7 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	   case "bbb" :
 		   if (p.hasPermission("rrrp.bigbertha.announce")) {
 			   if (args[0] != null) {
-				   BigBerthaActions.berthaBroadcast(args[0]);
+				   BigBerthaActions.berthaBroadcast(combineArgs(args));
 			   }
 			   
 		   }else p.sendMessage("You do not have permission to access " + args[0]); {}
@@ -154,6 +156,16 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	return false;
 	   
 	  }
+	  
+	  private String combineArgs(String[] s) {
+		  Bukkit.broadcastMessage("Here as a test");
+		  String s2 = "";
+		  for (String i : s) {
+			  s2 = s + " " + i;
+		  }
+		  
+		  return s2;
+	  } 
 	  
 	  public boolean checkDev(Player p ) {
 		  if (getConfig().getBoolean("devmode." + p.getName()) == true)
