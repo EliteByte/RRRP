@@ -136,10 +136,10 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		   else p.sendMessage("You do not have permission to access " + args[0]);
 		   break;
 		   
-	   case "bba" :
+	   case "bbb" :
 		   if (p.hasPermission("rrrp.bigbertha.announce")) {
 			   if (args[0] != null) {
-				   bba.berthaBroadcast(args[0]);
+				   BigBerthaActions.berthaBroadcast(args[0]);
 			   }
 			   
 		   }else p.sendMessage("You do not have permission to access " + args[0]); {}

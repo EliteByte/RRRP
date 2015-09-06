@@ -2,10 +2,16 @@
 ranks:
   woodrank:
     rankPerkExplosionRadius: 1  
-    rankPerkMaterial: WOOD 
+    rankPerkMaterial: 6
 
 
 ## PlayerData Config
 
+## BigBertha
 
+kickWarnings: 3
+botid: "b0dafd24ee35a477"
+botname: "Chomsky"
+devmode:
+  server: false
 

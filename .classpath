@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="/Users/EliteGaming/Downloads/EssentialsGroupManager.jar"/>
 	<classpathentry kind="lib" path="/Users/EliteGaming/Dropbox/RR3Server/cauldron-server.jar"/>
 	<classpathentry kind="lib" path="/Users/EliteGaming/Downloads/Essentials.jar"/>
+	<classpathentry kind="lib" path="/Users/EliteGaming/Downloads/VAI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

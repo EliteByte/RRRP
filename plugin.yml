@@ -29,3 +29,6 @@ commands:
   bblist:
     aliases: [bbl, bigberthalist, bigbl]
     description: Bypass various feature restrictions/limitations *Use Cautiously*
+  bbb:
+    aliases: [bigberthbroadcast, bbbroadcast]
+    description: (b.b.b) Big Bertha Broadcast.

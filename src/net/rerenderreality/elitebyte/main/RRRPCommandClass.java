@@ -368,7 +368,7 @@ public void rankperk (String args[], Player p) {
 		  }
 
 	public void bigberthaList(Player p) {
-		p.sendMessage("Current " + BigBertha.bb + " Commands");
+		p.sendMessage("Current " + BigBertha.bb + " Features");
 		p.sendMessage(plugin.getConfig().getList("bigbertha.list") + "");
 	}
 
