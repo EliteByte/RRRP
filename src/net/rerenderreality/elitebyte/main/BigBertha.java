@@ -119,12 +119,20 @@ public class BigBertha implements Listener {
 	  		}
 	  		
 	  		else if (plugin.containsPlayerNameBool(msgg) && checkBoolString(loc, msgg)) {
-	  			if (plugin.isOnline(msgg) != null) {
+	  			if (plugin.isOnline(plugin.containsPlayerName(msgg)) != null) {
 	  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
-	  				String loc = ChatColor.GREEN + "" + ChatColor.BOLD + "Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
-	  						+ ChatColor.DARK_GREEN + " X - " + target.getLocation().getBlockX() + " Y - " + target.getLocation().getBlockY() + " Z - " + 
+	  				String loc = "";
+	  				if (target.getLocation().getWorld() == p.getWorld()) {
+	  				 loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD + "Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
+	  						+ ChatColor.DARK_GREEN + " X = " + target.getLocation().getBlockX() + ", Y = " + target.getLocation().getBlockY() + ", Z = " + 
 	  						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + target.getLocation().distance(p.getLocation()) + "m away from you.";
+	  				} else {
+	  					loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD  + " Location = " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
+  						+ ChatColor.DARK_GREEN + " X = " + target.getLocation().getBlockX() + ", Y = " + target.getLocation().getBlockY() + ", Z = " + 
+  						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + "1 dim away from you.";
+	  				}
 	  						BigBerthaActions.berthaBroadcast(loc);
+	  						
 	  			} else {
 	  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
 	  			}
@@ -169,7 +177,6 @@ public class BigBertha implements Listener {
 			} 
 			
 			if (checkString(bbAliases, modMsg) != "") {
-				Bukkit.broadcastMessage(biggy + " <-- BB");
 			modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
 			}
 		
