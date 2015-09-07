@@ -131,7 +131,7 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		   break;
 		   
 	   case "bblist" :
-		   if (p.hasPermission("rrrp.bigbertha"))
+		   if (p.hasPermission("rrrp.biglist"))
 		   commandClass.bigberthaList(p);
 		   else p.sendMessage("You do not have permission to access " + args[0]);
 		   break;
@@ -155,11 +155,40 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	   
 	  }
 	  
+		public boolean containsPlayerNameBool(String msg) {
+			
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (msg.contains(p.getName().toLowerCase())) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public String containsPlayerName(String msg) {
+			
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (msg.contains(p.getName().toLowerCase())) {
+					return p.getName();
+				}
+			}
+			return "";
+		}
+		
+		public Player isOnline(String name) {
+			
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (player.getName().equalsIgnoreCase(name)) {
+					return player; 
+				}
+			}
+			return null;
+		}
+	  
 	  private String combineArgs(String[] s) {
-		  Bukkit.broadcastMessage("Here as a test");
 		  String s2 = "";
 		  for (String i : s) {
-			  s2 = s + " " + i;
+			  s2 = s2 + " " +  i;
 		  }
 		  
 		  return s2;

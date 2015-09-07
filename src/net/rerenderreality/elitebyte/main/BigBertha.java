@@ -27,6 +27,7 @@ public class BigBertha implements Listener {
 	List<String> cussWords = Array.asList("fuck", "fk", "ass", "arse", "dick", "dik", "asshole", "bastard", "bitch", "bollocks", "fuc", "fucker", "shit", "goddamn", "damn", "cunt", "kunt", "whore", "cock", "retard");
 	List<String> liked = Array.asList("favorite", "fav", "loved", "like", "dearest");
 	List<String> song = Array.asList("song", "music", "jam");
+	List<String> loc = Array.asList("location", "dimension", "coords", "loc", "position", "world", "where is");
 	
 	private static RRRPMainClass plugin;
 	
@@ -117,6 +118,18 @@ public class BigBertha implements Listener {
 					BigBerthaActions.berthaBroadcast("My favorite " + checkString(song, msgg) + " is " + ChatColor.UNDERLINE + "https://www.youtube.com/watch?v=wk4ftn4PArg");
 	  		}
 	  		
+	  		else if (plugin.containsPlayerNameBool(msgg) && checkBoolString(loc, msgg)) {
+	  			if (plugin.isOnline(msgg) != null) {
+	  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
+	  				String loc = ChatColor.GREEN + "" + ChatColor.BOLD + "Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
+	  						+ ChatColor.DARK_GREEN + " X - " + target.getLocation().getBlockX() + " Y - " + target.getLocation().getBlockY() + " Z - " + 
+	  						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + target.getLocation().distance(p.getLocation()) + "m away from you.";
+	  						BigBerthaActions.berthaBroadcast(loc);
+	  			} else {
+	  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
+	  			}
+	  		}
+	  		
 	  		else {	
 	  			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin,
 						new ExtendedBigBertha(p, plugin, handleBotMsg(msg)),
@@ -130,12 +143,12 @@ public class BigBertha implements Listener {
 			}
 	  	} 
 	
+
 	private String handleBotMsg(String msg) {
 			String msgg = msg.toLowerCase();
 			String modMsg = "";
 			String biggy = checkString(bbAliases, msgg);
 			if (biggy != "") {
-				Bukkit.broadcastMessage(beginsWith(bbAliases, msgg));
 				if (beginsWithBool(bbAliases, msgg)) {
 					if (beginsWith(bbAliases, msgg) != "") {
 						if (msgg.length() > 3) {
@@ -147,15 +160,18 @@ public class BigBertha implements Listener {
 							msgg = finalMod;
 							
 						}
-						
+						modMsg = msgg;
 					}
 				}
-				//modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
 			} 
-			modMsg = msgg;
 			if (plugin.getConfig().getBoolean("devmode.server")) {
 			Bukkit.broadcastMessage("Message being sent out to Bot : " + modMsg);
 			} 
+			
+			if (checkString(bbAliases, modMsg) != "") {
+				Bukkit.broadcastMessage(biggy + " <-- BB");
+			modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
+			}
 		
 		return modMsg;
 	}
