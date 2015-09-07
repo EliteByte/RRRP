@@ -21,13 +21,16 @@ import com.earth2me.essentials.Essentials;
 public class BigBertha implements Listener {
 	public Map<Player, Integer> kickWarnings = new HashMap<Player, Integer>();
 	public static String bb = ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "" + ChatColor.GOLD + "Big" + ChatColor.BOLD + "" + ChatColor.DARK_RED + "Bertha" + ChatColor.DARK_GRAY + "]" + ChatColor.WHITE;
-	List<String> bbAliases = Array.asList("bb", "berty", "biggy", "bertha", "biggie", "bigbertha", "big bertha");
+	List<String> bbAliases = Array.asList("bb ", "berty ", "biggy ", "bertha ", "biggie ", "bigbertha ", "big bertha ");
 	List<String> tps = Array.asList("tps", "ticks per second");
 	List<String> feeling = Array.asList("feeling");
 	List<String> cussWords = Array.asList("fuck", "fk", "ass", "arse", "dick", "dik", "asshole", "bastard", "bitch", "bollocks", "fuc", "fucker", "shit", "goddamn", "damn", "cunt", "kunt", "whore", "cock", "retard");
 	List<String> liked = Array.asList("favorite", "fav", "loved", "like", "dearest");
 	List<String> song = Array.asList("song", "music", "jam");
 	List<String> loc = Array.asList("location", "dimension", "coords", "loc", "position", "world", "where is");
+	List<String> kick = Array.asList("kick", "boot", "remove");
+	List<String> kill = Array.asList("execute", "kill", "eliminate", "murder", "exterminate", "destroy", "obliterate", "void");
+	List<String> ban = Array.asList("ban", "exile");
 	
 	private static RRRPMainClass plugin;
 	
@@ -123,9 +126,9 @@ public class BigBertha implements Listener {
 	  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
 	  				String loc = "";
 	  				if (target.getLocation().getWorld() == p.getWorld()) {
-	  				 loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD + "Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
+	  				 loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD + " Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
 	  						+ ChatColor.DARK_GREEN + " X = " + target.getLocation().getBlockX() + ", Y = " + target.getLocation().getBlockY() + ", Z = " + 
-	  						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + target.getLocation().distance(p.getLocation()) + "m away from you.";
+	  						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + Math.round(target.getLocation().distance(p.getLocation())) + "m away from you.";
 	  				} else {
 	  					loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD  + " Location = " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
   						+ ChatColor.DARK_GREEN + " X = " + target.getLocation().getBlockX() + ", Y = " + target.getLocation().getBlockY() + ", Z = " + 
@@ -136,7 +139,41 @@ public class BigBertha implements Listener {
 	  			} else {
 	  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
 	  			}
+	  		} else if (checkBoolString(kick, msgg) && plugin.containsPlayerNameBool(msgg)) {
+	  			if (p.hasPermission("rrrp.kick")) {
+	  			if (plugin.isOnline(plugin.containsPlayerName(msgg)) != null) {
+	  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
+	  				target.kickPlayer(p.getDisplayName() + " says GOML!");
+	  				
+	  			} else {
+	  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
+	  			}
 	  		}
+	  		}
+	  		
+	  	 else if (checkBoolString(kill, msgg) && plugin.containsPlayerNameBool(msgg)) {
+	  		if (p.hasPermission("rrrp.kill")) {
+  			if (plugin.isOnline(plugin.containsPlayerName(msgg)) != null) {
+  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
+  				target.setHealth(0.0);
+  				
+  			} else {
+  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
+  			}
+	  		}
+  		} else if (checkBoolString(ban, msgg) && plugin.containsPlayerNameBool(msgg)) {
+  			if (p.hasPermission("rrrp.ban")) {
+  			if (plugin.isOnline(plugin.containsPlayerName(msgg)) != null) {
+  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
+  				target.setBanned(true);
+  				target.kickPlayer(bb + " later you won't be missed ;)");
+  				
+  			} else {
+  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
+  			}
+  		}
+  		}
+	  	
 	  		
 	  		else {	
 	  			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin,
