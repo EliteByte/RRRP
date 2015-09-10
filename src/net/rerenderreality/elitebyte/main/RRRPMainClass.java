@@ -234,7 +234,6 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		    
 	  }
 	  
-	  @SuppressWarnings("deprecation")
 	public void butcher(World w) {
 		  List<Entity> es = w.getEntities();
 		  List<Entity> valid = new ArrayList<Entity>();
@@ -246,8 +245,7 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		  }
 		  
 		  for (Entity e : valid) {
-			  e.remove();
-			  BigBerthaActions.berthaBroadcast("Removing a : " + e.getType().getName());
+			  e.remove(); 
 		  }
 	  }
 	  
