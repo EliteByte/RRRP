@@ -28,7 +28,10 @@ public class BigBertha implements Listener {
 	List<String> liked = Array.asList("favorite", "fav", "loved", "like", "dearest");
 	List<String> song = Array.asList("song", "music", "jam");
 	List<String> loc = Array.asList("location", "dimension", "coords", "loc", "position", "world", "where is");
-	List<String> kick = Array.asList("kick", "boot", "remove");
+	List<String> kick = Array.asList("kick", "boot", "remove");		
+	List<String> mobs = Array.asList("mobs", "monsters", "entities", "fucken sacks of shit");
+																	//Zeph made me ^ 
+	List<String> butcher = Array.asList("butcher");
 	List<String> kill = Array.asList("execute", "kill", "eliminate", "murder", "exterminate", "destroy", "obliterate", "void");
 	List<String> ban = Array.asList("ban", "exile");
 	
@@ -126,11 +129,11 @@ public class BigBertha implements Listener {
 	  				Player target = plugin.isOnline(plugin.containsPlayerName(msgg));
 	  				String loc = "";
 	  				if (target.getLocation().getWorld() == p.getWorld()) {
-	  				 loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD + " Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
+	  				 loc = target.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD + " Location : " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
 	  						+ ChatColor.DARK_GREEN + " X = " + target.getLocation().getBlockX() + ", Y = " + target.getLocation().getBlockY() + ", Z = " + 
 	  						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + Math.round(target.getLocation().distance(p.getLocation())) + "m away from you.";
 	  				} else {
-	  					loc = p.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD  + " Location = " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
+	  					loc = target.getDisplayName() + ChatColor.GREEN + "" + ChatColor.BOLD  + " Location = " + ChatColor.DARK_AQUA + "World : " + target.getLocation().getWorld().getName()
   						+ ChatColor.DARK_GREEN + " X = " + target.getLocation().getBlockX() + ", Y = " + target.getLocation().getBlockY() + ", Z = " + 
   						target.getLocation().getBlockZ() + " " + ChatColor.DARK_RED  + "1 dim away from you.";
 	  				}
@@ -161,6 +164,15 @@ public class BigBertha implements Listener {
   				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
   			}
 	  		}
+	  		
+	  	 } else if (checkBoolString(kill, msgg) && checkBoolString(mobs, msgg) || checkBoolString(butcher, msgg)) {
+			  		if (p.hasPermission("rrrp.butcher")) {
+		  				plugin.butcher(p.getWorld());
+		  				
+		  			} else {
+		  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
+		  			}
+	  		
   		} else if (checkBoolString(ban, msgg) && plugin.containsPlayerNameBool(msgg)) {
   			if (p.hasPermission("rrrp.ban")) {
   			if (plugin.isOnline(plugin.containsPlayerName(msgg)) != null) {
@@ -205,17 +217,20 @@ public class BigBertha implements Listener {
 							msgg = finalMod;
 							
 						}
-						modMsg = msgg;
+
 					}
+				} else {
+					modMsg = msgg;
 				}
-			} 
-			if (plugin.getConfig().getBoolean("devmode.server")) {
-			Bukkit.broadcastMessage("Message being sent out to Bot : " + modMsg);
 			} 
 			
 			if (checkString(bbAliases, modMsg) != "") {
 			modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
 			}
+			
+			if (plugin.getConfig().getBoolean("devmode.server")) {
+			Bukkit.broadcastMessage("Message being sent out to Bot : " + modMsg);
+			} 
 		
 		return modMsg;
 	}
@@ -265,10 +280,11 @@ public class BigBertha implements Listener {
 	
 	public static String substituteName(String str, String oldName, boolean t) {
 		String custString = str;
-		String botName = "Chomsky";
+		String botName = "Chomsky ";
 
 		if (plugin.getConfig().getString("botname") != null){
 			botName = plugin.getConfig().getString("botname");
+			botName = botName + " ";
 		}
 		
 		if (t)  {

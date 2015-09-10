@@ -16,7 +16,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -235,20 +234,20 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		    
 	  }
 	  
-	  public void butcher(World w) {
+	  @SuppressWarnings("deprecation")
+	public void butcher(World w) {
 		  List<Entity> es = w.getEntities();
 		  List<Entity> valid = new ArrayList<Entity>();
 		  
 		  for (Entity e : es) {
-			  if (e instanceof LivingEntity) {
-				  if (e instanceof Monster) {
+			  if (e instanceof Monster) {
 					  valid.add(e);
-				  }
 			  }
 		  }
 		  
 		  for (Entity e : valid) {
 			  e.remove();
+			  BigBerthaActions.berthaBroadcast("Removing a : " + e.getType().getName());
 		  }
 	  }
 	  
