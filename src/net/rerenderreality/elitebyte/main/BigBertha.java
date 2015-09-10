@@ -197,7 +197,7 @@ public class BigBertha implements Listener {
 				if (beginsWithBool(bbAliases, msgg)) {
 					if (beginsWith(bbAliases, msgg) != "") {
 						if (msgg.length() > 3) {
-							msgg = msgg.substring(beginsWith(bbAliases, msgg).length() + 1, msgg.length());
+							msgg = msgg.substring(beginsWith(bbAliases, msgg).length() , msgg.length());
 							
 							String firstChar = msgg.substring(0, 1).toUpperCase();
 							String midMod = msgg.substring(1, msgg.length());
