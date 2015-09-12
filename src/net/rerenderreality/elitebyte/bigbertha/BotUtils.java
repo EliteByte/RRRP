@@ -1,4 +1,4 @@
-package net.rerenderreality.elitebyte.main;
+package net.rerenderreality.elitebyte.bigbertha;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -22,8 +22,17 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 
-class Utils
+class BotUtils
 {
+	
+	/*
+	 * This Class is unimportant to basic Users
+	 * All it does is Handles the response from
+	 * the bot.
+	 */
+	
+	
+	
   @SuppressWarnings("rawtypes")
 public static String parametersToWWWFormURLEncoded(Map<String, String> parameters)
     throws Exception

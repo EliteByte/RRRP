@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.rerenderreality.elitebyte.bigbertha.BigBertha;
+
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -272,29 +274,40 @@ public void rankperk (String args[], Player p) {
 
 
 	
-	
+	/*
+	 * Called when someone does /deathhunt join
+	 * Put's the player in 
+	 */
 	private void deathhuntJoin(Player p) {
-		String pName = p.getDisplayName();
+		String pName = p.getName();
 		
-		if ( plugin.getConfig().get("deathhuntroster." + pName) == null ) {
-		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-		Date dateobj = new Date();
-		plugin.getConfig().set("deathhuntroster." + pName + ".DOJ", df.format(dateobj));
-		plugin.getConfig().set("deathhuntroster." + pName + ".isPlaying", true);
-		plugin.saveConfig();
+		if ( plugin.getConfig().get("deathhuntroster." + pName) == null  || plugin.getConfig().getBoolean("deaththuntroster." + pName + ".isPlaying") == false) {
+			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+			Date dateobj = new Date();
+			plugin.getConfig().set("deathhuntroster." + pName + ".DOJ", df.format(dateobj));
+			plugin.getConfig().set("deathhuntroster." + pName + ".isPlaying", true);
+			plugin.saveConfig();
 		
 		} else p.sendMessage(ChatColor.DARK_RED + "It seems you are already on the roster, if this is wrong contact a Dev.");
 	}
 	
+	/*
+	 * This returns a String of all the players that are in the validPlayers()
+	 * list and combines all the player names into one String with a space inbetween each.
+	 */
 	private String deathhuntRoster() {
 		String stringList = "";
-		Set<String> validPlayers2 = validPlayers();
-		for (String currentP : validPlayers2) {
+		Set<String> validPlayers = validPlayers();
+		for (String currentP : validPlayers) {
 			stringList = stringList + ChatColor.DARK_RED + currentP + " ";
 		}
 		return stringList;
 	}
 	
+	/* 
+	 * This returns a List of Strings of the people in the config who have
+	 * deathhuntroster.{PlayerName}.isPlaying set to true 
+	 */
 	private Set<String> validPlayers() {
 		String[] validPlayers = new String[] {};
 		Set<String> validPlayers2 = new HashSet<String>(Array.asList(validPlayers));
@@ -310,6 +323,7 @@ public void rankperk (String args[], Player p) {
 	
 	
 	@SuppressWarnings("deprecation")
+	// This method is my version of /sudo cmd
 	public void sudoc(String[] args, Player p) {
 		   Player target = null;
 		  
@@ -317,11 +331,11 @@ public void rankperk (String args[], Player p) {
 			  if (args[0] != null) {
 				  if (Bukkit.getPlayer(args[0]) != null) {
 					  	target = Bukkit.getPlayer(args[0]);
-					  	if (target.getDisplayName() != "EliteByte" || plugin.getConfig().getBoolean("sudoBlacklist." + target.getDisplayName()) == false) {
-					  		if (args.length < 3) {	
+					  	if (target.getName() != "EliteByte" || plugin.getConfig().getList("sudoBlacklist").contains(target.getName())) {
+					  		if (args.length == 2) {	
 					  			target.performCommand(args[1]);
 					  		} else {
-					  			target.performCommand(performMultiCommand(args, target.getDisplayName()));
+					  			target.performCommand(performMultiCommand(args, target.getName()));
 					  		}
 					  	}  
 				  } else {

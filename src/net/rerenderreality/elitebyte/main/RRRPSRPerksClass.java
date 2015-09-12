@@ -12,6 +12,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class RRRPSRPerksClass implements Listener {
 
+	/*
+	 * This class is used to handle all the RankPerks
+	 */
+	
+	
+	
 	public RRRPMainClass plugin;
 	
 	public RRRPSRPerksClass (RRRPMainClass plugin) {

@@ -1,8 +1,10 @@
-package net.rerenderreality.elitebyte.main;
+package net.rerenderreality.elitebyte.bigbertha;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.rerenderreality.elitebyte.main.RRRPMainClass;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -187,7 +189,7 @@ public class BigBertha implements Listener {
 	  		
 	  		else {	
 	  			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin,
-						new ExtendedBigBertha(p, plugin, handleBotMsg(msg)),
+						new BotBigBertha(p, plugin, handleBotMsg(msg)),
 						10);
 	  		}
 	  	}
@@ -404,15 +406,5 @@ public class BigBertha implements Listener {
 		
 		return str;
 	}
-	
-}
-
-class BigBerthaActions {
-	
-	public static void berthaBroadcast(String msg) {
-		Bukkit.broadcastMessage(BigBertha.bb + " " + msg);
-	}
-	
-	//public void onPlayerJoinEvent
 	
 }

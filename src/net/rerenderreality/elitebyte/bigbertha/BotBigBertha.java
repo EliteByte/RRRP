@@ -1,4 +1,4 @@
-package net.rerenderreality.elitebyte.main;
+package net.rerenderreality.elitebyte.bigbertha;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,20 +8,22 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
+import net.rerenderreality.elitebyte.main.RRRPMainClass;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import pw.prok.imagine.util.Array;
 
-public class ExtendedBigBertha implements Runnable {
+public class BotBigBertha implements Runnable {
 	
 	Player player;
 	RRRPMainClass plugin;
 	List<String> botNames = Array.asList("Izar", "Izzy", "Chomsky", "my name is Hope.");
 	String inputMsg, outputMsg;
 
-	public ExtendedBigBertha(Player p, RRRPMainClass pl, String in) {
+	public BotBigBertha(Player p, RRRPMainClass pl, String in) {
 		player = p;
 		plugin = pl;
 		inputMsg = in;
