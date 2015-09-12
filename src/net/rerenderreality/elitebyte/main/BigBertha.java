@@ -195,8 +195,8 @@ public class BigBertha implements Listener {
 	  	}
 	  	
 	  	if (ess.getTimer().getAverageTPS() <= 10) {
-				BigBerthaActions.berthaBroadcast("You boys are spawning to many mobs so bye, bye all mobs >;]");
-				plugin.butcher(p.getWorld());
+				BigBerthaActions.berthaBroadcast("Mob load is getting heavy clearin'em out");
+				BigBerthaActions.berthaBroadcast("Mob's cleared : " + plugin.butcher(p.getWorld()));
 			}
 	  	} 
 	

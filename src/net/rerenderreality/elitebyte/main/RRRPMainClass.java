@@ -1,8 +1,6 @@
 package net.rerenderreality.elitebyte.main;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -10,14 +8,18 @@ import org.anjocaido.groupmanager.GroupManager;
 import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.ComplexLivingEntity;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Flying;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -234,19 +236,22 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		    
 	  }
 	  
-	public void butcher(World w) {
-		  List<Entity> es = w.getEntities();
-		  List<Entity> valid = new ArrayList<Entity>();
-		  
-		  for (Entity e : es) {
-			  if (e instanceof Monster) {
-					  valid.add(e);
-			  }
-		  }
-		  
-		  for (Entity e : valid) {
-			  e.remove(); 
-		  }
+	public int butcher(World w) {
+			int numberRemoved = 0;
+		
+			for (Chunk chunk : w.getLoadedChunks())
+			{
+				for (Entity e : chunk.getEntities())		
+				{
+					if ( e instanceof Monster || e instanceof ComplexLivingEntity || e instanceof Flying || e instanceof Slime ) {
+							numberRemoved++;
+							e.remove();
+					}
+					
+				}
+			}
+			
+			return numberRemoved;
 	  }
 	  
 	  public void updateCompass(Player p) {
