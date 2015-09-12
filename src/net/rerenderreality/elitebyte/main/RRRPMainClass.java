@@ -153,6 +153,10 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	  } else if (!(sender instanceof Player)) {
 		   switch (commandSent) {
 			
+		   case "ebb" :
+			   BigBerthaActions.eliteBroadcast(combineArgs(args));
+			   break;
+			   
 		   }   
 	   }
 	return false;
@@ -278,8 +282,8 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			Player prey = null;
 			String name;
 			
-			if (getConfig().get("deathhuntroster." + p.getDisplayName() + ".currentPrey") != null) {
-				name = getConfig().get("deathhuntroster." + p.getDisplayName() + ".currentPrey").toString();
+			if (getConfig().get("deathhuntroster." + p.getName() + ".currentPrey") != null) {
+				name = getConfig().get("deathhuntroster." + p.getName() + ".currentPrey").toString();
 				Bukkit.broadcastMessage(name + " Curr Prey name");
 					if (playerLookup(name) != null) {
 								Bukkit.broadcastMessage("Looked up player " + name);
@@ -293,44 +297,54 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	  
 	  public Player playerLookup(String pName) {
 		  for ( Player p : Bukkit.getOnlinePlayers()) {
-			  Bukkit.broadcastMessage("PlayerLookup " + p.getDisplayName() + " compared to " + pName);
 			  if ( p.getDisplayName() == pName) {
-				  Bukkit.broadcastMessage("Found the playerloopup");
 				  return p;
 		  } 
 	  	}
 		return null;
 	  }
 
+	  /*
+	   * This method gets the current amount of minutes
+	   * we have passed since the first minute of the month
+	   * so Ex:
+	   * if the date = January the 2nd the time is 4:21 p.m
+	   * This would look like this in my equation
+	   * (2nd - 1) * 24 * 60
+	   * Because it is the 2nd but it hasn't passed 48 hours
+	   *  I subtract 1 from the current day
+	   * And then I multiply it by 24 and then 60 because their
+	   * are 24 hours in a day and 60 minutes in an hour.
+	   * and it's 4:21 p.m which I convert to military time
+	   * so it's 16:21 so now I do 16 * 60 and add 21
+	   * Because their has been 16 *60 minutes that have passed
+	   * and add the minutes of the day too
+	   * So the whole equation looks like
+	   * ((day - 1) * 24 * 60) + (hour2military * 60 + minute) ==
+	   *  2421 minutes passed from the beggining of the month to current date.
+	   */
 	@SuppressWarnings({ "deprecation" })
 	private double currentTime() {
 		double finalTime = 0;
 		Date dateobj = new Date();
 		finalTime =  ((dateobj.getDate() - 1) * 24 * 60) + (dateobj.getHours() * 60) + dateobj.getMinutes();
+		Bukkit.broadcastMessage("Current Time : " + finalTime);
 		return finalTime;
-	}  
+	}
+	
+	public void commenceCooler(Player p , String string, int coolAmt) {
+			plugin.getConfig().set("rankperk." + string + "." + p.getName(), currentTime());
+			p.sendMessage(ChatColor.DARK_GRAY + "" + coolAmt + ChatColor.GRAY + " minutes until you can use this perk again" );
+	}
+	public double remainingCooler(Player p, String string, int coolAmt) {
+		
+		if (plugin.getConfig().get("rankperk." + string + "." + p.getName()) != null) {
+			return currentTime() - plugin.getConfig().getDouble("rankperk." + string + "." + p.getName());
+		}
+		
+		return 0;
+	} 
+
 	  
-	public boolean hasCooled(Player p, double time) {
-		if (getConfig().get("cooldown.rankperk.woodrank." + p.getName()) != null) {
-			p.sendMessage(currentTime() + " : Current Time, Your Time : " + getConfig().getDouble("cooldown.rankperk.woodrank." + p.getName()));
-			if (currentTime() - getConfig().getDouble("cooldown.rankperk.woodrank." + p.getName()) >= time) {
-				p.sendMessage("You have cooled");
-					return true;
-			} else {
-					return false;
-			}
-	} else {
-		getConfig().set("cooldown.rankperk.woodrank." + p.getName(), currentTime());
-	}
-	return false;	
-}
-
-	public void commenceCooler(Player p, double time) {
-		 p.sendMessage("You won't be able to use this for another, " + time + " minute(s)");
-	}
-
-	public double remainingCooler(Player p, double d) {
-		return currentTime() - d;
-	}
 	
 }

@@ -221,7 +221,19 @@ public class RRRPCommandClass implements Listener {
 		
 	}
 	
+	
+	/*
+	 * Called when someone does the /rankperk or /rankperk {RankName} cmd.
+	 * If they don't use the cmd with a RankName it gives the player
+	 * the rankperk of their current Rank.
+	 */
 public void rankperk (String args[], Player p) {
+	
+		int coolAmt = 1;
+	
+		if (plugin.getConfig().get("rrrp.rankperk.cooldown") != null) {
+			coolAmt = plugin.getConfig().getInt("rrrp.rankperk.cooldown");
+		}
 		
 		if (args.length == 0) {
 			String groupName = plugin.getGroup(p);
@@ -230,16 +242,18 @@ public void rankperk (String args[], Player p) {
 				
 				case "Wood" :
 						if (p.hasPermission("rrrp.rankperk.wood")) {
-							if (plugin.hasCooled(p, 1)) {
-								plugin.commenceCooler(p, 1);
+							double remainingTime = plugin.remainingCooler(p, "wood", coolAmt);
+							
+							if (remainingTime <= 0) {
+								plugin.commenceCooler(p, "wood", coolAmt);
 								RRRPSRPerksClass.woodPerk(p);
 							} else {
-								p.sendMessage("Sorry you are still cooling, please wait another " + plugin.remainingCooler(p, 1.0) + " minute(s)");
-							} 
-						}
-							else {
-							p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the WoodPerk please contact Elite it this is wrong.");
+								p.sendMessage("Sorry you are still cooling, please wait another " + plugin.remainingCooler(p, "wood", coolAmt) + " minute(s)");
 							}
+						} else {
+							p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the WoodPerk please contact Elite it this is wrong.");
+							}	
+						
 							break;
 				
 				case "Stone" :
@@ -272,8 +286,6 @@ public void rankperk (String args[], Player p) {
 		}
 		}
 
-
-	
 	/*
 	 * Called when someone does /deathhunt join
 	 * Put's the player in 

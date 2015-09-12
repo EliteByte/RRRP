@@ -32,3 +32,6 @@ commands:
   bbb:
     aliases: [bigberthbroadcast, bbbroadcast]
     description: (b.b.b) Big Bertha Broadcast.
+  ebb:
+    aliases: [elitebytebroadcast, elitebb]
+    description: (e.b) EliteByte Broadcast
