@@ -167,11 +167,9 @@ public class BigBertha implements Listener {
 	  		
 	  	 } else if (checkBoolString(kill, msgg) && checkBoolString(mobs, msgg) || checkBoolString(butcher, msgg)) {
 			  		if (p.hasPermission("rrrp.butcher")) {
-		  				plugin.butcher(p.getWorld());
+						BigBerthaActions.berthaBroadcast("Mob's cleared : " + plugin.butcher(p.getWorld()));
 		  				
-		  			} else {
-		  				BigBerthaActions.berthaBroadcast(ChatColor.DARK_RED + " I'm sorry that player isn't online or his named is spelled incorrectly.");
-		  			}
+		  			} 
 	  		
   		} else if (checkBoolString(ban, msgg) && plugin.containsPlayerNameBool(msgg)) {
   			if (p.hasPermission("rrrp.ban")) {
