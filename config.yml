@@ -1,8 +1,8 @@
 ## Logic Config  
 ranks:
-  woodrank:
+  wood:
     rankPerkExplosionRadius: 1  
-    rankPerkMaterial: 6
+    rankPerkMaterial: 17
 
 
 ## PlayerData Config

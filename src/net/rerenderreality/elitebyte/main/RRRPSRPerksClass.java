@@ -37,10 +37,10 @@ public class RRRPSRPerksClass implements Listener {
 				loc.setZ(pLoc.getZ());
 				loc.setY(validBlocks(pLoc, 30));
 				p.sendMessage(ChatColor.DARK_AQUA + "Your Rank Perk was used and spawned @ Y-Level : " + ChatColor.BOLD + "" + ChatColor.DARK_RED + loc.getBlockY()
-					+ ChatColor.DARK_AQUA + " expRadius : " + ChatColor.BOLD + "" + ChatColor.DARK_RED + plugin.getConfig().getLong("ranks.woodrank.rankPerkExplosionRadius"));	
+					+ ChatColor.DARK_AQUA + " expRadius : " + ChatColor.BOLD + "" + ChatColor.DARK_RED + plugin.getConfig().getLong("ranks.wood.explosionRadius"));	
 				
 				@SuppressWarnings("deprecation")
-				ItemStack m = new ItemStack(Material.getMaterial(plugin.getConfig().getInt("ranks.woodrank.rankPerkMaterial")));
+				ItemStack m = new ItemStack(Material.getMaterial(plugin.getConfig().getInt("ranks.wood.material")));
 				if (m != null && m.getType().isBlock()) {
 					fallingBlocks(woodH, m.getType(), loc, (long) 0.5);
 					

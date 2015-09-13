@@ -229,10 +229,10 @@ public class RRRPCommandClass implements Listener {
 	 */
 public void rankperk (String args[], Player p) {
 	
-		int coolAmt = 1;
+		int coolAmt = 60;
 	
-		if (plugin.getConfig().get("rrrp.rankperk.cooldown") != null) {
-			coolAmt = plugin.getConfig().getInt("rrrp.rankperk.cooldown");
+		if (plugin.getConfig().get("ranks.wood.cooldown") != null) {
+			coolAmt = plugin.getConfig().getInt("ranks.wood.cooldown") * 60;
 		}
 		
 		if (args.length == 0) {
@@ -244,11 +244,12 @@ public void rankperk (String args[], Player p) {
 						if (p.hasPermission("rrrp.rankperk.wood")) {
 							double remainingTime = plugin.remainingCooler(p, "wood", coolAmt);
 							
-							if (remainingTime <= 0) {
+							if (remainingTime/60 >= coolAmt) {
 								plugin.commenceCooler(p, "wood", coolAmt);
 								RRRPSRPerksClass.woodPerk(p);
 							} else {
-								p.sendMessage("Sorry you are still cooling, please wait another " + plugin.remainingCooler(p, "wood", coolAmt) + " minute(s)");
+								p.sendMessage(ChatColor.DARK_RED + "Sorry you are still cooling, please wait another " +
+							ChatColor.GRAY + Math.round(remainingTime/60*100.0)/100.0 + ChatColor.DARK_RED + " minute(s)");
 							}
 						} else {
 							p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the WoodPerk please contact Elite it this is wrong.");
@@ -257,6 +258,7 @@ public void rankperk (String args[], Player p) {
 							break;
 				
 				case "Stone" :
+					
 						if (p.hasPermission("rrrp.rankperk.stone"))
 								p.sendMessage("This feature has yet to be released");
 							else 
