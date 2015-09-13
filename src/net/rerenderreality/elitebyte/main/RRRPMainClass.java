@@ -342,6 +342,7 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			double curr = currentTime();
 			Bukkit.broadcastMessage(ChatColor.RED + "Config : " + getConfig().getDouble("ranks." + string + "." + p.getName()));
 			Bukkit.broadcastMessage("CurrentTime : "+ curr);
+			Bukkit.broadcastMessage(ChatColor.DARK_AQUA +  "Remaining : " + (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1);
 			return (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1 ;
 		} else {
 			commenceCooler(p, string, coolAmt);

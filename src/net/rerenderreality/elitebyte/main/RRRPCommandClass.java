@@ -244,7 +244,7 @@ public void rankperk (String args[], Player p) {
 						if (p.hasPermission("rrrp.rankperk.wood")) {
 							double remainingTime = plugin.remainingCooler(p, "wood", coolAmt);
 							
-							if (remainingTime/60 >= coolAmt) {
+							if (remainingTime >= coolAmt) {
 								plugin.commenceCooler(p, "wood", coolAmt);
 								RRRPSRPerksClass.woodPerk(p);
 							} else {
