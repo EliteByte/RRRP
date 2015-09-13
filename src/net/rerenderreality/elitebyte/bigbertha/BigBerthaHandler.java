@@ -9,13 +9,14 @@ import net.rerenderreality.elitebyte.main.RRRPMainClass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.plugin.PluginManager;
 
 import pw.prok.imagine.util.Array;
 
 import com.earth2me.essentials.Essentials;
 
+@SuppressWarnings("deprecation")
 public class BigBerthaHandler {
 	
 	public Map<Player, Integer> kickWarnings = new HashMap<Player, Integer>();
@@ -42,7 +43,7 @@ public class BigBerthaHandler {
 	}
 
 
-	public void bigBerthaMsgHandle(String msg, Player p, (event) Event event) {
+	public void bigBerthaMsgHandle(String msg, Player p, PlayerChatEvent event) {
 	    String msgg = msg.toLowerCase();
 	    
 	    PluginManager pm = plugin.getServer().getPluginManager();
@@ -100,7 +101,7 @@ public class BigBerthaHandler {
 	  			p.sendMessage(bb + " Your not gonna like what's coming if you continue...");
 	  			kickWarnings.put(p, curr);
 	  		}
-	  		event.setCancelled(true);
+	  		 event.setCancelled(true);
 	  	}
 	  	else if (checkBoolString(bbAliases, msgg) && !checkBoolString(cussWords, msgg)) {
 	  	

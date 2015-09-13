@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import net.rerenderreality.elitebyte.bigbertha.BigBertha;
 import net.rerenderreality.elitebyte.bigbertha.BigBerthaActions;
-import net.rerenderreality.elitebyte.bigbertha.BigBerthaHandler;
 
 import org.anjocaido.groupmanager.GroupManager;
 import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
@@ -252,7 +251,6 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		    return randomNum;
 		}
 	  
-	  @SuppressWarnings({ "deprecation" })
 	@EventHandler(priority = EventPriority.HIGH)
 	  public void onPlayerUse(PlayerInteractEvent event) {
 			
@@ -358,7 +356,6 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	   * ((day - 1) * 24 * 60) + (hour2military * 60 + minute) ==
 	   *  2421 minutes passed from the beggining of the month to current date.
 	   */
-	@SuppressWarnings({ "deprecation" })
 	private double currentTime() {
 		double finalTime = 0;
 		Date dateobj = new Date();
