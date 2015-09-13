@@ -11,6 +11,7 @@ import net.rerenderreality.elitebyte.bigbertha.BigBertha;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
@@ -19,6 +20,7 @@ import pw.prok.imagine.util.Array;
 public class RRRPCommandClass implements Listener {
 	
 	public static RRRPMainClass plugin;
+	public RRRPSRPerksClass perksClass = new RRRPSRPerksClass(plugin);
 	private String hashtagBoard = "####################################################";
 	public final String deathhunt = ChatColor.BLACK + "" + ChatColor.BOLD + "Death" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Hunt" + ChatColor.WHITE;
 
@@ -128,13 +130,15 @@ public class RRRPCommandClass implements Listener {
 		
 	}
 	
-	public void rrrp( String[] args, Player p) {
+	public void rrrp( String[] args, CommandSender sender) {
 	
 		if (args.length == 0) {
-				p.sendMessage(ChatColor.DARK_RED + "Usage: /rrrp help");
-				if (plugin.getGroup(p) == "Admin" || plugin.getGroup(p) == "DevGod" || plugin.getGroup(p) == "Owner" || plugin.getGroup(p) == "Webmaster") {
-					p.sendMessage(ChatColor.DARK_GRAY + "Usage for Admins: /rrrp admin");
+			if (sender instanceof Player) {
+				sender.sendMessage(ChatColor.DARK_RED + "Usage: /rrrp help");
+				if (plugin.getGroup((Player) sender) == "Admin" || plugin.getGroup((Player) sender) == "DevGod" || plugin.getGroup((Player) sender) == "Owner" || plugin.getGroup((Player) sender) == "Webmaster") {
+					sender.sendMessage(ChatColor.DARK_GRAY + "Usage for Admins: /rrrp admin");
 				}
+			}
 		}
 		
 		else if (args.length > 0) {
@@ -142,20 +146,20 @@ public class RRRPCommandClass implements Listener {
 			switch (args[0]) {
 			
 			case "admin" :
-				if (p.hasPermission("rrrp.admin")) {
+				if (sender.hasPermission("rrrp.admin")) {
 				if (args.length == 1) {
-				p.sendMessage(ChatColor.DARK_RED + "Usage: /rrrp admin {Config, Help} {ConfigPath} {Value} {ValueType : 'String', 'int', 'double', 'float', 'long' }");
-				p.sendMessage(ChatColor.DARK_AQUA + "Example: /rrrp admin config ranks.woodrank.woodPerkExplosionRadius 1.0");
+				sender.sendMessage(ChatColor.DARK_RED + "Usage: /rrrp admin {Config, Help} {ConfigPath} {Value} {ValueType : 'String', 'int', 'double', 'float', 'long' }");
+				sender.sendMessage(ChatColor.DARK_AQUA + "Example: /rrrp admin config ranks.woodrank.woodPerkExplosionRadius 1.0");
 				} else {
 					switch (args[1].toLowerCase()) {
 					
 					case "help" :
-						p.sendMessage(ChatColor.GRAY + " Ummm..... I haven't made any admin commands.... #BlameSchool");
+						sender.sendMessage(ChatColor.GRAY + " Ummm..... I haven't made any admin commands.... #BlameSchool");
 						break;
 					
 					case "config":
 						if (args.length < 5) {
-							p.sendMessage(ChatColor.DARK_RED + "Usage: /rrrp admin {Config, Help} {ConfigPath} {Value}"
+							sender.sendMessage(ChatColor.DARK_RED + "Usage: /rrrp admin {Config, Help} {ConfigPath} {Value}"
 									+ " {ValueType : 'String', 'int', 'double', 'float', 'long' }");
 						} else {
 							
@@ -163,37 +167,37 @@ public class RRRPCommandClass implements Listener {
 							
 							
 							case "String" :
-								p.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
+								sender.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
 								plugin.getConfig().set(args[2], args[3]);
 								break;
 							
 							case "int" :
-								p.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
+								sender.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
 								plugin.getConfig().set(args[2],Integer.parseInt(args[3]));
 								break;
 								
 							case "double" :
-								p.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
+								sender.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
 								plugin.getConfig().set(args[2], Double.parseDouble(args[3]));
 								break;
 								
 							case "float" :
-								p.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
+								sender.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
 								plugin.getConfig().set(args[2], Float.parseFloat(args[3]));
 								break;
 								
 							case "long" :
-								p.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
+								sender.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
 								plugin.getConfig().set(args[2], Long.parseLong(args[3]));
 								break;
 								
 							case "boolean" :
-								p.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
+								sender.sendMessage(ChatColor.DARK_AQUA + "Changing config : " + ChatColor.RED + args[2] + ChatColor.GRAY + "=" + ChatColor.BLUE + args[3] + " " +ChatColor.DARK_GRAY  + "Type = " + args[4]);
 								plugin.getConfig().set(args[2], Boolean.parseBoolean(args[3]));
 								break;
 							
 							default :
-								p.sendMessage(ChatColor.DARK_AQUA + args[4] + ChatColor.DARK_RED + " cannot be deemed a JavaValue Type, you f*** something up, *Pwease twai agwain!*  <3 Elite");
+								sender.sendMessage(ChatColor.DARK_AQUA + args[4] + ChatColor.DARK_RED + " cannot be deemed a JavaValue Type, you f*** something up, *Pwease twai agwain!*  <3 Elite");
 							}
 							plugin.saveConfig();
 						}
@@ -205,21 +209,27 @@ public class RRRPCommandClass implements Listener {
 					}
 				}
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Sorry you don't have permission to RRRP Admin commands.");
+					sender.sendMessage(ChatColor.DARK_RED + "Sorry you don't have permission to RRRP Admin commands.");
 				}
 					
 				break;
 		    
 			case "help" :
-				p.sendMessage("----------------=" + ChatColor.BOLD + "" + ChatColor.AQUA + "RRRP" + ChatColor.ITALIC + "" + ChatColor.WHITE + " Commands" + "=----------------");
+				sender.sendMessage("----------------=" + ChatColor.BOLD + "" + ChatColor.AQUA + "RRRP" + ChatColor.ITALIC + "" + ChatColor.WHITE + " Commands" + "=----------------");
 				
-				p.sendMessage(ChatColor.DARK_GRAY + "/deathhunt " + ChatColor.GRAY + "help" );
-				p.sendMessage(ChatColor.GREEN + "Usage : " + ChatColor.ITALIC + "" + ChatColor.WHITE + "List of " + deathhunt + " Commands");
+				sender.sendMessage(ChatColor.DARK_GRAY + "/deathhunt " + ChatColor.GRAY + "help" );
+				sender.sendMessage(ChatColor.GREEN + "Usage : " + ChatColor.ITALIC + "" + ChatColor.WHITE + "List of " + deathhunt + " Commands");
+				
+				sender.sendMessage(ChatColor.DARK_GRAY + "/rankperk " + ChatColor.GRAY + "{Optional}[RankName]" );
+				sender.sendMessage(ChatColor.GREEN + "Usage : " + ChatColor.ITALIC + "" + ChatColor.WHITE + "Receive your rank's RankPerk, or a specific RankPerk");
+				
 				break;
 			}
 		}
 		
 	}
+	
+
 	
 	
 	/*
@@ -241,21 +251,8 @@ public void rankperk (String args[], Player p) {
 				switch (groupName) {
 				
 				case "Wood" :
-						if (p.hasPermission("rrrp.rankperk.wood")) {
-							double remainingTime = plugin.remainingCooler(p, "wood", coolAmt);
-							
-							if (remainingTime >= coolAmt) {
-								plugin.commenceCooler(p, "wood", coolAmt);
-								RRRPSRPerksClass.woodPerk(p);
-							} else {
-								p.sendMessage(ChatColor.DARK_RED + "Still cooling, please wait another " +
-							ChatColor.DARK_AQUA +  (int) remainingTime/60 + "M" + ChatColor.WHITE + " : " + ChatColor.DARK_AQUA + (int) remainingTime%60 + "S" + ChatColor.DARK_RED + " min:sec");
-							}
-						} else {
-							p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the WoodPerk please contact Elite it this is wrong.");
-							}	
-						
-							break;
+						perksClass.woodPerkReceive(p, coolAmt);
+					break;
 				
 				case "Stone" :
 					
@@ -263,7 +260,7 @@ public void rankperk (String args[], Player p) {
 								p.sendMessage("This feature has yet to be released");
 							else 
 								p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the StonePerk please contact Elite it this is wrong.");
-							break;
+					break;
 				
 				}
 		}
@@ -273,9 +270,8 @@ public void rankperk (String args[], Player p) {
 			switch (args[0].toLowerCase()) {
 			
 			case "wood" :
-				if (p.hasPermission("rrrp.rankperk.wood"))
-					RRRPSRPerksClass.woodPerk(p);
-		    break;
+				perksClass.woodPerkReceive(p, coolAmt);
+				break;
 		    
 			case "stone" :
 				if (p.hasPermission("rrrp.rankperk.stone"))
@@ -284,9 +280,10 @@ public void rankperk (String args[], Player p) {
 					p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the StonePerk please contact Elite it this is wrong.");	
 				break;
 		    
+				}
 			}
 		}
-		}
+
 
 	/*
 	 * Called when someone does /deathhunt join
@@ -338,27 +335,41 @@ public void rankperk (String args[], Player p) {
 	
 	@SuppressWarnings("deprecation")
 	// This method is my version of /sudo cmd
-	public void sudoc(String[] args, Player p) {
+	public void sudoc(String[] args, CommandSender sender) {
 		   Player target = null;
 		  
 		  if (args.length > 1) { 
 			  if (args[0] != null) {
 				  if (Bukkit.getPlayer(args[0]) != null) {
 					  	target = Bukkit.getPlayer(args[0]);
-					  	if (target.getName() != "EliteByte" || plugin.getConfig().getList("sudoBlacklist").contains(target.getName())) {
+					  	if (target.getName() != "EliteByte" && plugin.getConfig().getList("sudoBlacklist").contains(target.getName())) {
 					  		if (args.length == 2) {	
+					  			
+					  			if (target.isOp())
 					  			target.performCommand(args[1]);
+					  			else {
+						  			target.setOp(true);
+						  			target.performCommand(args[1]);
+						  			target.setOp(false);
+					  			}
 					  		} else {
+					  			if (target.isOp())
 					  			target.performCommand(performMultiCommand(args, target.getName()));
+					  			else {
+					  				target.setOp(true);
+						  			target.performCommand(performMultiCommand(args, target.getName()));
+						  			target.setOp(false);
+					  		}
 					  		}
 					  	}  
 				  } else {
-					  p.sendMessage(ChatColor.DARK_RED + args[0] + " Is not online :/");
+					  sender.sendMessage(ChatColor.DARK_RED + args[0] + " Is not online :/");
 					  
 				  }    
 			  }	  
 		  }	  
 	  }
+	
 	
 	private String performMultiCommand(String[] args, String target) {
 		  String joinedString = StringUtils.join(args, " ");

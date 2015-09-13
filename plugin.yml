@@ -28,7 +28,7 @@ commands:
     description: Bypass various feature restrictions/limitations *Use Cautiously*
   bblist:
     aliases: [bbl, bigberthalist, bigbl]
-    description: Bypass various feature restrictions/limitations *Use Cautiously*
+    description: Get a list of BigBertha's usage
   bbb:
     aliases: [bigberthbroadcast, bbbroadcast]
     description: (b.b.b) Big Bertha Broadcast.
@@ -38,3 +38,6 @@ commands:
   bbp:
     aliases: [bigberthaprocess, bbprocess]
     description: Proccess a command through Bertha using
+  rankperkall:
+    aliases: [rpa, rankperka]
+    description: Give everyone a specified rankperk. Usage /rpa {RankName} {CustomMessage}-Optional

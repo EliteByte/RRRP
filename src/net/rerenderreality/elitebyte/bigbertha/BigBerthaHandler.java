@@ -29,8 +29,7 @@ public class BigBerthaHandler {
 	List<String> song = Array.asList("song", "music", "jam");
 	List<String> loc = Array.asList("location", "dimension", "coords", "loc", "position", "world", "where is");
 	List<String> kick = Array.asList("kick", "boot", "remove");		
-	List<String> mobs = Array.asList("mobs", "monsters", "entities", "fucken sacks of shit");
-																	//Zeph made me ^ 
+	List<String> mobs = Array.asList("mobs", "monsters", "entities", "fucken sacks of shit");															//Zeph made me ^ 
 	List<String> butcher = Array.asList("butcher");
 	List<String> kill = Array.asList("execute", "kill", "eliminate", "murder", "exterminate", "destroy", "obliterate", "void");
 	List<String> ban = Array.asList("ban", "exile");
@@ -184,8 +183,9 @@ public class BigBerthaHandler {
 	  	
 	  		
 	  		else {	
+	  			Bukkit.broadcastMessage("Msgg : " + msgg);
 	  			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin,
-						new BotBigBertha(p, plugin, handleBotMsg(msg)),
+						new BotBigBertha(p, plugin, handleBotMsg(msgg)),
 						10);
 	  		}
 	  	}
@@ -211,21 +211,22 @@ public class BigBerthaHandler {
 						String midMod = msgg.substring(1, msgg.length());
 						String finalMod = firstChar + midMod;
 						msgg = finalMod;
-						
+						Bukkit.broadcastMessage(ChatColor.GRAY + "1 : " + ChatColor.DARK_GRAY  + modMsg);
 					}
 
 				}
 			} else {
+				Bukkit.broadcastMessage(ChatColor.GRAY + "2 : " + ChatColor.DARK_GRAY  + modMsg);
 				modMsg = msgg;
 			}
 		} 
-		
+		Bukkit.broadcastMessage(ChatColor.GRAY + "3 : " + ChatColor.DARK_GRAY  + modMsg);
 		if (checkString(bbAliases, modMsg) != "") {
-		modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
+			modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
 		}
 		
 		if (plugin.getConfig().getBoolean("devmode.server")) {
-		Bukkit.broadcastMessage("Message being sent out to Bot : " + modMsg);
+			Bukkit.broadcastMessage(ChatColor.GRAY + "Message being sent out to Bot : " + ChatColor.DARK_GRAY  + modMsg);
 		} 
 	
 	return modMsg;

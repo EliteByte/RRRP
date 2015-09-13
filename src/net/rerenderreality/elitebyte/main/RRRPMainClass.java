@@ -16,6 +16,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ComplexLivingEntity;
 import org.bukkit.entity.Entity;
@@ -142,9 +143,9 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		   break;
 		   
 	   case "ebb" :
-		   if (p.hasPermission("rrrp.ebb"))
-		   BigBerthaActions.eliteBroadcast(combineArgs(args));
-		   else p.sendMessage("You do not have permission to access " + cmd.getName());
+		   if (p.getName() == "EliteByte")
+			   BigBerthaActions.eliteBroadcast(combineArgs(args));
+		   else p.sendMessage("Only Elite can send EliteMessages, just stop.");
 		   break;
 		   
 	   case "bbb" :
@@ -152,15 +153,21 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			   if (args[0].length() != 0) {
 				   BigBerthaActions.berthaBroadcast(combineArgs(args));
 			   }
+		   }else p.sendMessage("You do not have permission to access " + cmd.getName());
 			   break;
-			   
-			   
-			   
-		   }else p.sendMessage("You do not have permission to access " + args[0]); {}
+	   case "rankperkall" :
+		   if (p.hasPermission("rrrp.rankperk.all")) {
+			   if (args.length != 0) {
+				   rankperkAll(args[0], args, sender);
+			   } else {
+				   p.sendMessage(ChatColor.DARK_RED + "Not enough args.");
+			   }
+		   }
 		   break;
+			   
 		   
 	   }
-	  } else if (!(sender instanceof Player)) {
+	  } else if (sender instanceof ConsoleCommandSender) {
 		   switch (commandSent) {
 			
 		   case "ebb" :
@@ -178,15 +185,54 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		   case "bbb" :
 				   if (args[0].length() != 0) {
 					   BigBerthaActions.berthaBroadcast(combineArgs(args));
-				   } sender.sendMessage(ChatColor.DARK_RED + " You didn't provide enough args. Usage: /bbb {MSG}");
+				   } else sender.sendMessage(ChatColor.DARK_RED + " You didn't provide enough args. Usage: /bbb {MSG}");
 				   break;
+				   
+		   case "rrrp" :
+			   commandClass.rrrp(args, sender);
+			   break;
+				   
+				   
+		   case "sudoc" :
+			   commandClass.sudoc(args, sender);
+			break; 
+			
+		   case "rankperkall" :
+				   if (args.length != 0) {
+					   rankperkAll(args[0], args, sender);
+				   } else {
+					   sender.sendMessage("Not enough args. Usage: /rpa {RankName} {CustomMessage}-Optional");
+				   }
+			   break;
 		   }   
 	   }
 	return false;
 	   
 	  }
 	  
-	  public Player getOnlineAdmin() {
+	  private void rankperkAll(String string, String[] args, CommandSender sender) {
+		  
+		  for (Player p : Bukkit.getOnlinePlayers()) {
+			  switch (string.toLowerCase()) {
+			  
+			  case "wood" :
+			   RRRPSRPerksClass.woodPerk(p);
+			   break;
+			   
+			   default :
+				   sender.sendMessage(ChatColor.DARK_RED + "I'm sorry but " + ChatColor.RED + string + ChatColor.DARK_RED + " hasn't been implemented");
+			  }
+		  }
+		  if (args.length == 1){
+			   BigBerthaActions.berthaBroadcast("Here's a " + string + "Perk on me, Enjoy!");
+			  } else {
+				  args[0] = "";
+				  BigBerthaActions.berthaBroadcast(combineArgs(args));
+			  }
+		  
+	}
+
+	public Player getOnlineAdmin() {
 		  
 		  for (Player p : Bukkit.getOnlinePlayers()) {
 			  if (p.isOp() || p.hasPermission("rrrp.admin") ) {

@@ -21,6 +21,7 @@ public class RRRPSRPerksClass implements Listener {
 	public RRRPMainClass plugin;
 	
 	public RRRPSRPerksClass (RRRPMainClass plugin) {
+		if (plugin != null)
 		this.plugin = plugin;
 }
 	
@@ -51,6 +52,23 @@ public class RRRPSRPerksClass implements Listener {
 				if (plugin.checkDev(p) == false)
 				subtractPlayerHandItem(1, p);
 	}
+	
+	public void woodPerkReceive(Player p, int coolAmt) {	
+		if (p.hasPermission("rrrp.rankperk.wood")) {
+			double remainingTime = plugin.remainingCooler(p, "wood", coolAmt);
+			
+			if (remainingTime >= coolAmt) {
+				plugin.commenceCooler(p, "wood", coolAmt);
+				RRRPSRPerksClass.woodPerk(p);
+			} else {
+				p.sendMessage(ChatColor.DARK_RED + "Still cooling, please wait another " +
+			ChatColor.DARK_AQUA +  (int) remainingTime/60 + "M" + ChatColor.WHITE + " : " + ChatColor.DARK_AQUA + (int) remainingTime%60 + "S" + ChatColor.DARK_RED + " min:sec");
+			}
+		} else {
+			p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the WoodPerk please contact Elite it this is wrong.");
+			}	
+	}
+	
 	
 private void subtractPlayerHandItem(int amt, Player p) {
 	ItemStack hand = p.getItemInHand();
@@ -85,8 +103,8 @@ public void fallingBlocks(final int delay, final Material mat, final Location lo
 				public void run() {
 					if (timeLeft != -1) {
 						if (timeLeft != 0) {
-							if ( plugin.getConfig().getFloatList("ranks.woodrank.rankPerkExplosionRadius") != null) {
-								loc.getWorld().createExplosion(loc, Float.parseFloat(plugin.getConfig().getString("ranks.woodrank.rankPerkExplosionRadius")), false);
+							if ( plugin.getConfig().getFloatList("ranks.woodrank.explosionRadius") != null) {
+								loc.getWorld().createExplosion(loc, Float.parseFloat(plugin.getConfig().getString("ranks.woodrank.explosionRadius")), false);
 								spawnFallingBlock(mat, loc);
 								timeLeft--;
 							} else {
