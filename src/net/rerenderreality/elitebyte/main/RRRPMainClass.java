@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import net.rerenderreality.elitebyte.bigbertha.BigBertha;
 import net.rerenderreality.elitebyte.bigbertha.BigBerthaActions;
+import net.rerenderreality.elitebyte.bigbertha.BigBerthaHandler;
 
 import org.anjocaido.groupmanager.GroupManager;
 import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
@@ -35,6 +36,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
+@SuppressWarnings("deprecation")
 public class RRRPMainClass extends JavaPlugin implements Listener {
 
 	
@@ -97,13 +99,13 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	   case "deathhunt" :
 		   if (p.hasPermission("rrrp.deathhunt"))
 		   commandClass.deathhunt(args, p);
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		   break;
 		   
 	   case "sudoc" :
 		   if (p.hasPermission("rrrp.sudoc"))
 		   commandClass.sudoc(args, p);
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		break; 
 		
 	   case "iteminfo" :
@@ -113,31 +115,37 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	   case "reloadrrrp" :
 		   if (p.hasPermission("rrrp.reloadrrrp"))
 		   commandClass.reloadConfig();
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		   break;
 		 
 	   case "rankperk" :
 		   if (p.hasPermission("rrrp.rankperk"))
 		   commandClass.rankperk(args, p);
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		   break;
 		   
 	   case "rrrp" :
 		   if (p.hasPermission("rrrp.rrrp"))
 		   commandClass.rrrp(args, p);
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		   break;
 		   
 	   case "devmode" :
 		   if (p.hasPermission("rrrp.devmode"))
 		   commandClass.devModeToggle(p);
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		   break;
 		   
 	   case "bblist" :
 		   if (p.hasPermission("rrrp.biglist"))
 		   commandClass.bigberthaList(p);
-		   else p.sendMessage("You do not have permission to access " + args[0]);
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
+		   break;
+		   
+	   case "ebb" :
+		   if (p.hasPermission("rrrp.ebb"))
+		   BigBerthaActions.eliteBroadcast(combineArgs(args));
+		   else p.sendMessage("You do not have permission to access " + cmd.getName());
 		   break;
 		   
 	   case "bbb" :
@@ -145,6 +153,9 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			   if (args[0].length() != 0) {
 				   BigBerthaActions.berthaBroadcast(combineArgs(args));
 			   }
+			   break;
+			   
+			   
 			   
 		   }else p.sendMessage("You do not have permission to access " + args[0]); {}
 		   break;
@@ -155,12 +166,36 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			
 		   case "ebb" :
 			   BigBerthaActions.eliteBroadcast(combineArgs(args));
-			   break;
+			   break;			   
 			   
+		   case "bbp" :
+				 	if (args.length < 2){
+				 		if (getOnlineAdmin() != null) {
+					 		getOnlineAdmin().chat(combineArgs(args));
+				 		}
+				 	}
+				 	break;
+				 	
+		   case "bbb" :
+				   if (args[0].length() != 0) {
+					   BigBerthaActions.berthaBroadcast(combineArgs(args));
+				   } sender.sendMessage(ChatColor.DARK_RED + " You didn't provide enough args. Usage: /bbb {MSG}");
+				   break;
 		   }   
 	   }
 	return false;
 	   
+	  }
+	  
+	  public Player getOnlineAdmin() {
+		  
+		  for (Player p : Bukkit.getOnlinePlayers()) {
+			  if (p.isOp() || p.hasPermission("rrrp.admin") ) {
+				  return p;
+			  }
+		  }
+		  
+		  return null;
 	  }
 	  
 		public boolean containsPlayerNameBool(String msg) {
@@ -328,7 +363,7 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		double finalTime = 0;
 		Date dateobj = new Date();
 		finalTime =  (((dateobj.getDate() - 1) * 24 * 60) + (dateobj.getHours() * 60) + dateobj.getMinutes()) * 60 + dateobj.getSeconds();
-		Bukkit.broadcastMessage("Current Time : " + finalTime + " MinutesForm : " +  Math.round(finalTime/60.0));
+		//Bukkit.broadcastMessage("Current Time : " + finalTime + " MinutesForm : " +  Math.round(finalTime/60.0));
 		return finalTime;
 	}
 	

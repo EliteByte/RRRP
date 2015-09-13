@@ -35,3 +35,6 @@ commands:
   ebb:
     aliases: [elitebytebroadcast, elitebb]
     description: (e.b) EliteByte Broadcast
+  bbp:
+    aliases: [bigberthaprocess, bbprocess]
+    description: Proccess a command through Bertha using
