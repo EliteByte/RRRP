@@ -229,7 +229,7 @@ public class RRRPCommandClass implements Listener {
 	 */
 public void rankperk (String args[], Player p) {
 	
-		int coolAmt = 60;
+		int coolAmt = 60*60;
 	
 		if (plugin.getConfig().get("ranks.wood.cooldown") != null) {
 			coolAmt = plugin.getConfig().getInt("ranks.wood.cooldown") * 60;
@@ -248,8 +248,8 @@ public void rankperk (String args[], Player p) {
 								plugin.commenceCooler(p, "wood", coolAmt);
 								RRRPSRPerksClass.woodPerk(p);
 							} else {
-								p.sendMessage(ChatColor.DARK_RED + "Sorry you are still cooling, please wait another " +
-							ChatColor.GRAY + Math.round(remainingTime/60*100.0)/100.0 + ChatColor.DARK_RED + " minute(s)");
+								p.sendMessage(ChatColor.DARK_RED + "Still cooling, please wait another " +
+							ChatColor.DARK_AQUA +  (int) remainingTime/60 + "M" + ChatColor.WHITE + " : " + ChatColor.DARK_AQUA + (int) remainingTime%60 + "S" + ChatColor.DARK_RED + " min:sec");
 							}
 						} else {
 							p.sendMessage(ChatColor.DARK_RED + "You don't have permission to the WoodPerk please contact Elite it this is wrong.");

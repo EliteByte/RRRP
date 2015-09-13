@@ -335,14 +335,14 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	public void commenceCooler(Player p , String string, int coolAmt) {
 			getConfig().set("ranks." + string + "." + p.getName(), currentTime());
 			saveConfig();
-			p.sendMessage(ChatColor.DARK_GRAY + "" + coolAmt + ChatColor.GRAY + " minute(s) until you can use this perk again" );
+			p.sendMessage(ChatColor.DARK_AQUA + "" + coolAmt/60 + ChatColor.GRAY + " minute(s) until you can use this perk again" );
 	}
 	public double remainingCooler(Player p, String string, int coolAmt) {
 		if (getConfig().getDouble("ranks." + string + "." + p.getName()) != 0) {
 			double curr = currentTime();
-			Bukkit.broadcastMessage(ChatColor.RED + "Config : " + getConfig().getDouble("ranks." + string + "." + p.getName()));
-			Bukkit.broadcastMessage("CurrentTime : "+ curr);
-			Bukkit.broadcastMessage(ChatColor.DARK_AQUA +  "Remaining : " + (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1);
+			//Bukkit.broadcastMessage(ChatColor.RED + "Config : " + getConfig().getDouble("ranks." + string + "." + p.getName()));
+			//Bukkit.broadcastMessage("CurrentTime : "+ curr);
+			//Bukkit.broadcastMessage(ChatColor.DARK_AQUA +  "Remaining : " + (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1);
 			return (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1 ;
 		} else {
 			commenceCooler(p, string, coolAmt);
