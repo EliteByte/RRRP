@@ -33,6 +33,7 @@ public class BigBerthaHandler {
 	List<String> butcher = Array.asList("butcher");
 	List<String> kill = Array.asList("execute", "kill", "eliminate", "murder", "exterminate", "destroy", "obliterate", "void");
 	List<String> ban = Array.asList("ban", "exile");
+	List<String> pete = Array.asList("Peter");
 	
 	private static RRRPMainClass plugin;
 	
@@ -183,7 +184,6 @@ public class BigBerthaHandler {
 	  	
 	  		
 	  		else {	
-	  			Bukkit.broadcastMessage("Msgg : " + msgg);
 	  			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin,
 						new BotBigBertha(p, plugin, handleBotMsg(msgg)),
 						10);
@@ -206,21 +206,17 @@ public class BigBerthaHandler {
 				if (beginsWith(bbAliases, msgg) != "") {
 					if (msgg.length() > 3) {
 						msgg = msgg.substring(beginsWith(bbAliases, msgg).length() , msgg.length());
-						
 						String firstChar = msgg.substring(0, 1).toUpperCase();
 						String midMod = msgg.substring(1, msgg.length());
 						String finalMod = firstChar + midMod;
-						msgg = finalMod;
-						Bukkit.broadcastMessage(ChatColor.GRAY + "1 : " + ChatColor.DARK_GRAY  + modMsg);
+						modMsg = finalMod;
 					}
 
 				}
 			} else {
-				Bukkit.broadcastMessage(ChatColor.GRAY + "2 : " + ChatColor.DARK_GRAY  + modMsg);
 				modMsg = msgg;
 			}
 		} 
-		Bukkit.broadcastMessage(ChatColor.GRAY + "3 : " + ChatColor.DARK_GRAY  + modMsg);
 		if (checkString(bbAliases, modMsg) != "") {
 			modMsg = substituteName(msgg, checkString(bbAliases, msgg), true);
 		}

@@ -12,6 +12,7 @@ import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -28,6 +29,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -343,16 +345,22 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	  public void updateCompass(Player p) {
 		   if (getPrey(p) != null) {
 			   double metersAway = getPrey(p).getLocation().distance(p.getLocation());
-			   p.setItemInHand(preyCompass(getPrey(p), metersAway));
-		   }  
+			   p.setItemInHand(preyCompass(getPrey(p), metersAway, p));
+		   } else {
+			   p.setItemInHand(preyCompass(getPrey(p), -1, p));
+		   } 
 	  }
 	  
-	public ItemStack preyCompass(Player prey, double metersAway) {
+	public ItemStack preyCompass(Player prey, double metersAway, Player p) {
 			final String deathhunt = ChatColor.BLACK + "" + ChatColor.BOLD + "Death" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Hunt" + ChatColor.WHITE;
 			ItemStack preyCompass = new ItemStack(Material.COMPASS);
 			ItemMeta preyCompassMeta = preyCompass.getItemMeta();
-			preyCompassMeta.addEnchant(Enchantment.LURE, 69, true);
+			preyCompassMeta.addEnchant(Enchantment.FIRE_ASPECT, 666, true);
+			if (prey != null) {
 			preyCompassMeta.setDisplayName( deathhunt + ChatColor.DARK_AQUA + " Prey Pointer set to " + ChatColor.WHITE + "[" +  ChatColor.GRAY + prey.getDisplayName() + ChatColor.WHITE + "] " + ChatColor.DARK_AQUA + metersAway + " Meters away");
+			} else {
+				preyCompassMeta.setDisplayName( deathhunt + ChatColor.DARK_AQUA + " Prey Pointer set to " + ChatColor.WHITE + "[" +  ChatColor.GRAY + getPreyName(p) + ChatColor.WHITE + "]");
+			}
 			preyCompass.setItemMeta(preyCompassMeta);
 			return preyCompass;
 		}
@@ -361,27 +369,28 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			Player prey = null;
 			String name;
 			
-			if (getConfig().get("deathhuntroster." + p.getName() + ".currentPrey") != null) {
-				name = getConfig().get("deathhuntroster." + p.getName() + ".currentPrey").toString();
+			if (getPreyName(p) != "") {
+				name = getPreyName(p);
 				Bukkit.broadcastMessage(name + " Curr Prey name");
-					if (playerLookup(name) != null) {
+					if (isOnline(name) != null) {
 								Bukkit.broadcastMessage("Looked up player " + name);
-								prey = playerLookup(name);	
+								prey = isOnline(name);	
 				}
 			}
 			return prey;
 		}
 		
+		public String getPreyName(Player p) {
+			String name = "";
+			
+			if (getConfig().get("deathhuntroster." + p.getName() + ".currentPrey") != null) {
+				name = getConfig().get("deathhuntroster." + p.getName() + ".currentPrey").toString();
+				Bukkit.broadcastMessage(name + " Curr Prey name");
+			}
+			return name;
+		}
+		
 	  
-	  
-	  public Player playerLookup(String pName) {
-		  for ( Player p : Bukkit.getOnlinePlayers()) {
-			  if ( p.getDisplayName() == pName) {
-				  return p;
-		  } 
-	  	}
-		return null;
-	  }
 
 	  /*
 	   * This method gets the current amount of minutes
@@ -418,16 +427,28 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	public double remainingCooler(Player p, String string, int coolAmt) {
 		if (getConfig().getDouble("ranks." + string + "." + p.getName()) != 0) {
 			double curr = currentTime();
-			//Bukkit.broadcastMessage(ChatColor.RED + "Config : " + getConfig().getDouble("ranks." + string + "." + p.getName()));
-			//Bukkit.broadcastMessage("CurrentTime : "+ curr);
-			//Bukkit.broadcastMessage(ChatColor.DARK_AQUA +  "Remaining : " + (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1);
-			return (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) * -1 ;
+			return (getConfig().getDouble("ranks." + string + "." + p.getName()) - curr) *-1;
 		} else {
 			commenceCooler(p, string, coolAmt);
 			return 0;
 		}
 	} 
 
+	/*
+	 * Just for the lols
+	 * EggSlopsions
+	 */
 	  
+	@EventHandler
+	public void onPlayerThrowEgg(PlayerEggThrowEvent event) {
+			Location eggLoc = event.getEgg().getLocation();
+			Player thrower = event.getPlayer();
+			
+			if ( thrower.getItemInHand().getItemMeta().getDisplayName().contains(ChatColor.GOLD + "" + ChatColor.BOLD + "Egg" 
+			+ ChatColor.DARK_GREEN  + "" + ChatColor.BOLD + "Nade")) {
+				thrower.getLocation().getWorld().createExplosion(eggLoc, 0F);
+			}
+	}
+	
 	
 }

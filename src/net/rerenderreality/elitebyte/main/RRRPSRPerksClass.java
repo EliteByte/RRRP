@@ -1,5 +1,6 @@
 package net.rerenderreality.elitebyte.main;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,11 +19,11 @@ public class RRRPSRPerksClass implements Listener {
 	
 	
 	
-	public RRRPMainClass plugin;
+	public static RRRPMainClass plugin;
 	
 	public RRRPSRPerksClass (RRRPMainClass plugin) {
 		if (plugin != null)
-		this.plugin = plugin;
+		RRRPSRPerksClass.plugin = plugin;
 }
 	
 	public static void woodPerk(Player p) {
@@ -42,9 +43,8 @@ public class RRRPSRPerksClass implements Listener {
 				
 				@SuppressWarnings("deprecation")
 				ItemStack m = new ItemStack(Material.getMaterial(plugin.getConfig().getInt("ranks.wood.material")));
-				if (m != null && m.getType().isBlock()) {
-					fallingBlocks(woodH, m.getType(), loc, (long) 0.5);
-					
+				if (m != null && m.getType().isBlock() && plugin.getConfig().getInt("ranks.wood.material") != 0) {
+					fallingBlocks(woodH, m.getType(), loc, (long) 0.5);	
 				}
 				else {
 					fallingBlocks(woodH, Material.LOG, loc, (long) 0.5);
@@ -56,7 +56,7 @@ public class RRRPSRPerksClass implements Listener {
 	public void woodPerkReceive(Player p, int coolAmt) {	
 		if (p.hasPermission("rrrp.rankperk.wood")) {
 			double remainingTime = plugin.remainingCooler(p, "wood", coolAmt);
-			
+			Bukkit.broadcastMessage("Remaining Time : " + remainingTime);
 			if (remainingTime >= coolAmt) {
 				plugin.commenceCooler(p, "wood", coolAmt);
 				RRRPSRPerksClass.woodPerk(p);
@@ -103,8 +103,8 @@ public void fallingBlocks(final int delay, final Material mat, final Location lo
 				public void run() {
 					if (timeLeft != -1) {
 						if (timeLeft != 0) {
-							if ( plugin.getConfig().getFloatList("ranks.woodrank.explosionRadius") != null) {
-								loc.getWorld().createExplosion(loc, Float.parseFloat(plugin.getConfig().getString("ranks.woodrank.explosionRadius")), false);
+							if ( plugin.getConfig().get("ranks.wood.explosionRadius") != "" && plugin.getConfig().get("ranks.wood.explosionRadius") != null) {
+								loc.getWorld().createExplosion(loc, Float.parseFloat(plugin.getConfig().getString("ranks.wood.explosionRadius")), false);
 								spawnFallingBlock(mat, loc);
 								timeLeft--;
 							} else {

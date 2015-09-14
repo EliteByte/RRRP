@@ -26,6 +26,7 @@ public class RRRPCommandClass implements Listener {
 
 	public RRRPCommandClass(RRRPMainClass plugin) {
 			RRRPCommandClass.plugin = plugin;
+			perksClass = new RRRPSRPerksClass(plugin);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -93,12 +94,17 @@ public class RRRPCommandClass implements Listener {
 				break;
 				
 			case "compass" :
-				Player prey = p;
-				prey = plugin.getPrey(p);
-				Bukkit.broadcastMessage("Prey : " + prey.getDisplayName());
-				double metersAway = prey.getLocation().distance(p.getLocation());
-				p.getInventory().addItem(plugin.preyCompass(prey, metersAway));
-				p.setCompassTarget(prey.getLocation());
+				if (plugin.getPrey(p) != null) {
+					Player prey = p;
+					prey = plugin.getPrey(p);
+					Bukkit.broadcastMessage("Prey : " + prey.getDisplayName());
+					double metersAway = p.getLocation().distance(prey.getLocation());
+					p.getInventory().addItem(plugin.preyCompass(prey, metersAway, p));
+					Bukkit.broadcastMessage("Prey Loc : " + prey.getLocation());
+					p.setCompassTarget(prey.getLocation());
+				} else {
+					p.getInventory().addItem(plugin.preyCompass(null, -1, p));
+				}
 				break;
 			
 			case "roll" :
@@ -110,7 +116,7 @@ public class RRRPCommandClass implements Listener {
 				if (p.hasPermission("rrrp.deathhunt.preyset")) {
 					if (args[1] != null) {
 						p.sendMessage(ChatColor.RED + "Prey set to " + ChatColor.WHITE + args[1] + ChatColor.RED + ", happy hunting ~ Elite ;)");
-						plugin.getConfig().set("deathhuntroster." + p + ".currentPrey", args[1]);
+						plugin.getConfig().set("deathhuntroster." + p.getName() + ".currentPrey", args[1]);
 						plugin.saveConfig();
 					}
 				}else {
