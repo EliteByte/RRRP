@@ -162,9 +162,30 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 
 			case "ebb":
 				if (p.getName() == "EliteByte")
-					BigBerthaActions.eliteBroadcast(combineArgs(args));
+					bba.eliteBroadcast(combineArgs(args));
 				else
 					p.sendMessage("Only Elite can send EliteMessages, just stop.");
+				break;
+
+			case "oce":
+				if (p.getName() == "ocehtamote")
+					bba.oceBroadcast(combineArgs(args));
+				else
+					p.sendMessage("Only Matt, can send OceMessages, just stop please...stop");
+				break;
+
+			case "kilo":
+				if (p.getName() == "Kilometer")
+					bba.kiloBroadcast(combineArgs(args));
+				else
+					p.sendMessage("Only Kilometer, can send KiloMessages, just stop please...stop....stopp");
+				break;
+
+			case "toast":
+				if (p.getName() == "TheyCallMeToast")
+					bba.toastBroadcast(combineArgs(args));
+				else
+					p.sendMessage("Only TheyCallMeToast, can send ToastMessages, just stop please...stop....stopp...stoppp");
 				break;
 
 			case "bbb":
@@ -205,7 +226,19 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			switch (commandSent) {
 
 			case "ebb":
-				BigBerthaActions.eliteBroadcast(combineArgs(args));
+				bba.eliteBroadcast(combineArgs(args));
+				break;
+
+			case "oce":
+				bba.oceBroadcast(combineArgs(args));
+				break;
+
+			case "kilo":
+				bba.kiloBroadcast(combineArgs(args));
+				break;
+
+			case "toast":
+				bba.toastBroadcast(combineArgs(args));
 				break;
 
 			case "bbp":
@@ -258,9 +291,6 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 				perksClass.stonePerk(p);
 				break;
 			}
-			sender.sendMessage(ChatColor.DARK_RED + "I'm sorry but "
-					+ ChatColor.RED + string + ChatColor.DARK_RED
-					+ " hasn't been implemented");
 		}
 		if (args.length == 1) {
 			bba.berthaBroadcast("Here's a " + string + "Perk on me, Enjoy!");

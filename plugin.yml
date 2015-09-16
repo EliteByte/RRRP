@@ -35,6 +35,12 @@ commands:
   ebb:
     aliases: [elitebytebroadcast, elitebb]
     description: (e.b) EliteByte Broadcast
+  oce:
+    description: (e.b) Ocehtamote Broadcast
+  kilo:
+    description: (e.b) Kilometer Broadcast
+  toast:
+    description: (e.b) TheyCallMetToast Broadcast
   bbp:
     aliases: [bigberthaprocess, bbprocess]
     description: Proccess a command through Bertha using
