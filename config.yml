@@ -18,3 +18,7 @@ devmode:
   server: false
 eggnade:
   explosionRadius: 0
+
+## DeathHunt
+deathhuntroster:
+  roster:

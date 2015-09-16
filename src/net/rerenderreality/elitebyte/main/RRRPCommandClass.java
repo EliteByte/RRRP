@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import net.rerenderreality.elitebyte.bigbertha.BigBertha;
@@ -426,6 +427,7 @@ public class RRRPCommandClass implements Listener {
 	/*
 	 * Called when someone does /deathhunt join Put's the player in
 	 */
+	@SuppressWarnings("unchecked")
 	private void deathhuntJoin(Player p) {
 		String pName = p.getName();
 
@@ -438,6 +440,13 @@ public class RRRPCommandClass implements Listener {
 					df.format(dateobj));
 			plugin.getConfig().set("deathhuntroster." + pName + ".isPlaying",
 					true);
+			List<String> roster = Array.asList();
+			if (plugin.getConfig().getList("deathhuntroster.roster") != null) {
+				roster = (List<String>) plugin.getConfig().getList(
+						"deathhuntroster.roster");
+			}
+			roster.add(p.getName());
+			plugin.getConfig().set("deathhuntroster.roster", roster);
 			plugin.saveConfig();
 
 		} else

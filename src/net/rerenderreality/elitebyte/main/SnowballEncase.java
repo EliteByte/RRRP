@@ -115,7 +115,7 @@ public class SnowballEncase implements Listener {
 			int i = entLoc.getBlockY() + 5;
 			Location entLoc2 = entLoc;
 			entLoc2.setY(i);
-			for (int t = 1; t <= 18; t++) {
+			for (int t = 1; t <= 24; t++) {
 				customTNT(entWorld.spawn(entLoc2, TNTPrimed.class));
 			}
 			entWorld.createExplosion(x, y, z, 1.0F, false, false);
