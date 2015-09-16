@@ -100,10 +100,14 @@ public class BigBerthaHandler {
 						if (plugin.isOnline(plugin.containsPlayerName(msgg)) != null) {
 							Player target = plugin.isOnline(plugin
 									.containsPlayerName(msgg));
-							target.setHealth(0.5);
-							target.damage(10000000);
-							target.damage(10000000);
-							target.damage(10000000);
+							target.setHealth(0.5D);
+							target.setHealth(0D);
+							target.damage(10000000D);
+							target.setHealth(0D);
+							target.damage(10000000D);
+							target.setHealth(0D);
+							target.damage(10000000D);
+							target.setHealth(0D);
 
 						} else {
 							bba.berthaBroadcast(ChatColor.DARK_RED

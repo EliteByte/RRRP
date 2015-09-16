@@ -15,14 +15,28 @@ public class BigBerthaActions {
 			+ ChatColor.BOLD + ChatColor.DARK_GRAY + "God" + ChatColor.BOLD
 			+ "" + ChatColor.WHITE + "-" + ChatColor.BOLD + ""
 			+ ChatColor.DARK_RED + "EliteByte" + ChatColor.BOLD + ""
-			+ ChatColor.BLACK + "]" + ChatColor.WHITE;
-	private final String ocePrefix = ChatColor.RED + "" + ChatColor.BOLD
-			+ "SystemAdmin" + ChatColor.GRAY + "-" + ChatColor.BLUE + "Ocelot";
+			+ ChatColor.BLACK + "] " + ChatColor.RESET;
+	private final String ocePrefix = bracketString(true, ChatColor.BLACK,
+			ChatColor.RED + "SystemAdmin")
+			+ " "
+			+ ChatColor.BLUE
+			+ "Ocelot "
+			+ ChatColor.RESET;
 
-	private final String kiloPrefix = ChatColor.DARK_AQUA + "" + ChatColor.BOLD
-			+ "Co-Owner " + ChatColor.GOLD + "Kilo";
-	private final String toastPrefix = ChatColor.DARK_RED + "" + ChatColor.BOLD
-			+ "Owner " + ChatColor.WHITE + "" + ChatColor.BOLD + "Toast";
+	private final String kiloPrefix = bracketString(true, ChatColor.WHITE,
+			ChatColor.DARK_AQUA + "Co-Owner")
+			+ " "
+			+ ChatColor.GOLD
+			+ "Kilo"
+			+ ChatColor.RESET;
+	private final String toastPrefix = bracketString(true, ChatColor.GRAY,
+			ChatColor.DARK_RED + "" + ChatColor.BOLD + "Owner")
+			+ " "
+			+ ChatColor.WHITE
+			+ ""
+			+ ChatColor.BOLD
+			+ "Toast "
+			+ ChatColor.RESET;
 
 	/*
 	 * Broadcasts the inputed String with [BigBertha] prefix.
@@ -35,19 +49,30 @@ public class BigBerthaActions {
 	 * Broadcasts the inputed String with [DevGod-Elite] prefix.
 	 */
 	public void eliteBroadcast(String msg) {
-		Bukkit.broadcastMessage(elitePrefix + " " + msg);
+		Bukkit.broadcastMessage(elitePrefix + ": " + msg);
 	}
 
 	public void oceBroadcast(String msg) {
-		Bukkit.broadcastMessage(ocePrefix + " " + msg);
+		Bukkit.broadcastMessage(ocePrefix + ": " + msg);
 	}
 
 	public void kiloBroadcast(String msg) {
-		Bukkit.broadcastMessage(kiloPrefix + " " + msg);
+		Bukkit.broadcastMessage(kiloPrefix + ": " + msg);
 	}
 
 	public void toastBroadcast(String msg) {
-		Bukkit.broadcastMessage(toastPrefix + " " + msg);
+		Bukkit.broadcastMessage(toastPrefix + ": " + msg);
+	}
+
+	public String bracketString(boolean bold, ChatColor color, String msg) {
+		String string = "";
+		if (bold) {
+			string = color + "" + ChatColor.BOLD + "[" + msg + color + ""
+					+ ChatColor.BOLD + "]";
+		} else {
+			string = color + "[" + msg + color + "]";
+		}
+		return string;
 	}
 
 }
