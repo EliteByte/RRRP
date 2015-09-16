@@ -1,8 +1,10 @@
 ## Logic Config  
 ranks:
   wood:
-    rankPerkExplosionRadius: 1  
-    rankPerkMaterial: 17
+    explosionRadius: 1  
+    material: 17
+  stone:
+    material: 1
 
 
 ## PlayerData Config
@@ -14,4 +16,5 @@ botid: "b0dafd24ee35a477"
 botname: "Chomsky"
 devmode:
   server: false
-
+eggnade:
+  explosionRadius: 0

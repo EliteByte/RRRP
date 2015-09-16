@@ -77,10 +77,9 @@ public class BotBigBertha implements Runnable {
 				player.setMetadata(metadataKey, new FixedMetadataValue(plugin, custId));
 				String biggy = BigBerthaHandler.checkString(botNames, outputMsg);
 				if (biggy != "") {
-					//String msg = "";
-					outputMsg = BigBertha.bb + " " + BigBerthaHandler.substituteName(outputMsg, BigBerthaHandler.checkString(botNames, outputMsg), false);
+					outputMsg = BigBertha.bb  + BigBerthaHandler.substituteName(outputMsg, BigBerthaHandler.checkString(botNames, outputMsg), false);
 					Bukkit.broadcastMessage(outputMsg);
-				} else Bukkit.broadcastMessage(BigBertha.bb + " " + outputMsg);
+				} else Bukkit.broadcastMessage(BigBertha.bb  + outputMsg);
 				break;
 			}
 			wr.close();

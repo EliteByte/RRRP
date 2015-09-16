@@ -41,3 +41,5 @@ commands:
   rankperkall:
     aliases: [rpa, rankperka]
     description: Give everyone a specified rankperk. Usage /rpa {RankName} {CustomMessage}-Optional
+  eggnade:
+    description: SuperSecret Nades..
