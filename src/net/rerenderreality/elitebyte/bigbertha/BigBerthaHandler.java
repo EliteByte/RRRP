@@ -156,7 +156,7 @@ public class BigBerthaHandler {
 
 				if (ess.getTimer().getAverageTPS() <= 10) {
 					bba.berthaBroadcast("Mob load is getting heavy clearin'em out");
-					bba.berthaBroadcast("Mob's cleared : "
+					bba.berthaBroadcast("Mobs cleared : "
 							+ plugin.butcher(p.getWorld()));
 				}
 			}

@@ -21,6 +21,7 @@ commands:
     description: Reloads the RRRP Congfigs.
     aliases: [rrrrp]
   rankperk:
+    aliases: [rp]
     description: Receive your perk that is given by your Rank
   rrrp:
     description: Re-RenderReality Plugin Command List
