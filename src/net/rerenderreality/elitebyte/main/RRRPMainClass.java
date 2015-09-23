@@ -223,7 +223,6 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 				break;
 
 			case "voterestart":
-				bba.berthaBroadcast("Restarting the server....");
 				playervotes++;
 				restart();
 			}
@@ -286,7 +285,13 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		double half = getServer().getOnlinePlayers().size() / 2;
 
 		if (playervotes >= half) {
+			bba.berthaBroadcast(ChatColor.DARK_RED + "" + ChatColor.BOLD
+					+ "Sufficent Votes entered; Cya in 2 minutes, maybe ;)");
 			Bukkit.getServer().shutdown();
+		} else {
+			bba.berthaBroadcast(ChatColor.BOLD + "Votes til' restart : "
+					+ ChatColor.BOLD + "" + ChatColor.DARK_AQUA
+					+ Math.round(half));
 		}
 	}
 
