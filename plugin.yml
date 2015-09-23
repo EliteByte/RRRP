@@ -50,3 +50,5 @@ commands:
     description: Give everyone a specified rankperk. Usage /rpa {RankName} {CustomMessage}-Optional
   eggnade:
     description: SuperSecret Nades..
+  voterestart:
+    description: Vote to restart the whole server. USE only if their is a really bad problem.

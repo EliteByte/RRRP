@@ -54,6 +54,7 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 	public final TabCompletion tabCompleter = new TabCompletion(this);
 	public final BigBertha bigBertha = new BigBertha(this);
 	public GroupManager groupManager;
+	public int playervotes = 0;
 
 	@Override
 	public void onDisable() {
@@ -221,6 +222,10 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 				}
 				break;
 
+			case "voterestart":
+				bba.berthaBroadcast("Restarting the server....");
+				playervotes++;
+				restart();
 			}
 		} else if (sender instanceof ConsoleCommandSender) {
 			switch (commandSent) {
@@ -275,7 +280,14 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 			}
 		}
 		return false;
+	}
 
+	private void restart() {
+		double half = getServer().getOnlinePlayers().size() / 2;
+
+		if (playervotes >= half) {
+			Bukkit.getServer().shutdown();
+		}
 	}
 
 	private void rankperkAll(String string, String[] args, CommandSender sender) {
