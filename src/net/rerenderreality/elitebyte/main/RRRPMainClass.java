@@ -1,6 +1,7 @@
 package net.rerenderreality.elitebyte.main;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -78,7 +80,21 @@ public class RRRPMainClass extends JavaPlugin implements Listener {
 		pm.registerEvents(this, this);
 		getConfig().options().copyDefaults(true);
 		saveDefaultConfig();
-
+		if (getConfig().get("forceDelete.dimensionNumber") != null) {
+			int dimNumber = getConfig().getInt("forceDelete.dimensionNumber");
+			World world = getServer().getWorlds().get(dimNumber);
+			@SuppressWarnings("unchecked")
+			List<Integer> coords = (List<Integer>) getConfig().getList(
+					"forceDelete.coordinates");
+			this.logger.info(ChatColor.BOLD + "" + ChatColor.DARK_RED
+					+ "Attempting to remove the block in world "
+					+ world.getName() + " Coordinates : " + coords.get(0) + " "
+					+ coords.get(1) + " " + coords.get(2));
+			Block b = world.getBlockAt(coords.get(0), coords.get(1),
+					coords.get(2));
+			b.setType(Material.AIR);
+			this.logger.info("Block was deleted ?");
+		}
 	}
 
 	public String getGroup(final Player base) {

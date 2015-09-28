@@ -22,3 +22,11 @@ eggnade:
 ## DeathHunt
 deathhuntroster:
   roster:
+  
+## ForceDelete Blocks
+forceDelete:
+  dimensionNumber: 0
+  coordinates:
+  - 0
+  - 100
+  - 0
