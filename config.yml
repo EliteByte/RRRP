@@ -1,8 +1,11 @@
 ## Logic Config  
 ranks:
-  woodrank:
-    rankPerkExplosionRadius: 1  
-    rankPerkMaterial: 6
+  wood:
+    explosionRadius: 1  
+    material: 17
+  stone:
+    material: 1
+    players: false
 
 
 ## PlayerData Config
@@ -14,4 +17,17 @@ botid: "b0dafd24ee35a477"
 botname: "Chomsky"
 devmode:
   server: false
+eggnade:
+  explosionRadius: 0
 
+## DeathHunt
+deathhuntroster:
+  roster:
+  
+## ForceDelete Blocks
+forceDelete:
+  dimensionNumber: 0
+  coordinates:
+  - 0
+  - 100
+  - 0

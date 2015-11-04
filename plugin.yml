@@ -21,6 +21,7 @@ commands:
     description: Reloads the RRRP Congfigs.
     aliases: [rrrrp]
   rankperk:
+    aliases: [rp]
     description: Receive your perk that is given by your Rank
   rrrp:
     description: Re-RenderReality Plugin Command List
@@ -28,7 +29,26 @@ commands:
     description: Bypass various feature restrictions/limitations *Use Cautiously*
   bblist:
     aliases: [bbl, bigberthalist, bigbl]
-    description: Bypass various feature restrictions/limitations *Use Cautiously*
+    description: Get a list of BigBertha's usage
   bbb:
     aliases: [bigberthbroadcast, bbbroadcast]
     description: (b.b.b) Big Bertha Broadcast.
+  ebb:
+    aliases: [elitebytebroadcast, elitebb]
+    description: (e.b) EliteByte Broadcast
+  oce:
+    description: (e.b) Ocehtamote Broadcast
+  kilo:
+    description: (e.b) Kilometer Broadcast
+  toast:
+    description: (e.b) TheyCallMetToast Broadcast
+  bbp:
+    aliases: [bigberthaprocess, bbprocess]
+    description: Proccess a command through Bertha using
+  rankperkall:
+    aliases: [rpa, rankperka]
+    description: Give everyone a specified rankperk. Usage /rpa {RankName} {CustomMessage}-Optional
+  eggnade:
+    description: SuperSecret Nades..
+  voterestart:
+    description: Vote to restart the whole server. USE only if their is a really bad problem.

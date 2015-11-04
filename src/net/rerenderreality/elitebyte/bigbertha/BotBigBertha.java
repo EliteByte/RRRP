@@ -1,4 +1,4 @@
-package net.rerenderreality.elitebyte.main;
+package net.rerenderreality.elitebyte.bigbertha;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,20 +8,16 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
+import net.rerenderreality.elitebyte.main.RRRPMainClass;
 
-import pw.prok.imagine.util.Array;
-
-public class ExtendedBigBertha implements Runnable {
+public class BotBigBertha implements Runnable {
 	
 	Player player;
 	RRRPMainClass plugin;
 	List<String> botNames = Array.asList("Izar", "Izzy", "Chomsky", "my name is Hope.");
 	String inputMsg, outputMsg;
 
-	public ExtendedBigBertha(Player p, RRRPMainClass pl, String in) {
+	public BotBigBertha(Player p, RRRPMainClass pl, String in) {
 		player = p;
 		plugin = pl;
 		inputMsg = in;
@@ -36,6 +32,7 @@ public class ExtendedBigBertha implements Runnable {
 		return source.substring(startIdx + start.length(), endIdx);
 	}
 
+	@Override
 	public void run() {
 		try {
 			String botid = plugin.getConfig().getString("botid");// "b0dafd24ee35a477";
@@ -73,12 +70,11 @@ public class ExtendedBigBertha implements Runnable {
 				String custId = getStringDelimited(line, "custid=\"",
 						"\"");
 				player.setMetadata(metadataKey, new FixedMetadataValue(plugin, custId));
-				String biggy = BigBertha.checkString(botNames, outputMsg);
+				String biggy = BigBerthaHandler.checkString(botNames, outputMsg);
 				if (biggy != "") {
-					//String msg = "";
-					outputMsg = BigBertha.bb + " " + BigBertha.substituteName(outputMsg, BigBertha.checkString(botNames, outputMsg), false);
+					outputMsg = BigBertha.bb  + BigBerthaHandler.substituteName(outputMsg, BigBerthaHandler.checkString(botNames, outputMsg), false);
 					Bukkit.broadcastMessage(outputMsg);
-				} else Bukkit.broadcastMessage(BigBertha.bb + " " + outputMsg);
+				} else Bukkit.broadcastMessage(BigBertha.bb  + outputMsg);
 				break;
 			}
 			wr.close();
