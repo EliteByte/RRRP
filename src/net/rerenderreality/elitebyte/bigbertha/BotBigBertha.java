@@ -10,11 +10,18 @@ import java.util.List;
 
 import net.rerenderreality.elitebyte.main.RRRPMainClass;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
+
+import pw.prok.imagine.util.Array;
+
 public class BotBigBertha implements Runnable {
-	
+
 	Player player;
 	RRRPMainClass plugin;
-	List<String> botNames = Array.asList("Izar", "Izzy", "Chomsky", "my name is Hope.");
+	List<String> botNames = Array.asList("Izar", "Izzy", "Chomsky",
+			"my name is Hope.");
 	String inputMsg, outputMsg;
 
 	public BotBigBertha(Player p, RRRPMainClass pl, String in) {
@@ -38,16 +45,16 @@ public class BotBigBertha implements Runnable {
 			String botid = plugin.getConfig().getString("botid");// "b0dafd24ee35a477";
 			if (botid == null) {
 				botid = "b0dafd24ee35a477";
-			}											
+			}
 			String metadataKey = "Chatbot.custid";
 			String urlStr = "http://www.pandorabots.com/pandora/talk-xml";
 			String data = "botid=" + URLEncoder.encode(botid, "UTF-8")
 					+ "&input=" + URLEncoder.encode(inputMsg, "UTF-8");
 
 			if (player.hasMetadata(metadataKey)) {
-				String custId = player.getMetadata("Chatbot.custid").get(0).asString();
-				data += "&custid="
-						+ URLEncoder.encode(custId, "UTF-8");
+				String custId = player.getMetadata("Chatbot.custid").get(0)
+						.asString();
+				data += "&custid=" + URLEncoder.encode(custId, "UTF-8");
 				plugin.getLogger().info("Using custid: " + custId);
 			}
 
@@ -67,14 +74,19 @@ public class BotBigBertha implements Runnable {
 				if (outputMsg == null) {
 					break;
 				}
-				String custId = getStringDelimited(line, "custid=\"",
-						"\"");
-				player.setMetadata(metadataKey, new FixedMetadataValue(plugin, custId));
-				String biggy = BigBerthaHandler.checkString(botNames, outputMsg);
+				String custId = getStringDelimited(line, "custid=\"", "\"");
+				player.setMetadata(metadataKey, new FixedMetadataValue(plugin,
+						custId));
+				String biggy = BigBerthaHandler
+						.checkString(botNames, outputMsg);
 				if (biggy != "") {
-					outputMsg = BigBertha.bb  + BigBerthaHandler.substituteName(outputMsg, BigBerthaHandler.checkString(botNames, outputMsg), false);
+					outputMsg = BigBertha.bb
+							+ BigBerthaHandler.substituteName(outputMsg,
+									BigBerthaHandler.checkString(botNames,
+											outputMsg), false);
 					Bukkit.broadcastMessage(outputMsg);
-				} else Bukkit.broadcastMessage(BigBertha.bb  + outputMsg);
+				} else
+					Bukkit.broadcastMessage(BigBertha.bb + outputMsg);
 				break;
 			}
 			wr.close();
@@ -84,8 +96,8 @@ public class BotBigBertha implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
-    public String formatMessage(String msg) {
-        return BigBertha.bb + " " + msg;
-    }
+
+	public String formatMessage(String msg) {
+		return BigBertha.bb + " " + msg;
+	}
 }

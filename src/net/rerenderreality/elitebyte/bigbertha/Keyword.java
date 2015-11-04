@@ -2,6 +2,8 @@ package net.rerenderreality.elitebyte.bigbertha;
 
 import java.util.List;
 
+import pw.prok.imagine.util.Array;
+
 public class Keyword {
 	;
 	List<String> bbAliases = Array.asList("bb ", "berty ", "biggy ", "bertha ",

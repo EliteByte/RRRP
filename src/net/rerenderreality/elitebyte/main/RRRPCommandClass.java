@@ -9,11 +9,14 @@ import java.util.Set;
 
 import net.rerenderreality.elitebyte.bigbertha.BigBertha;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+
+import pw.prok.imagine.util.Array;
 
 public class RRRPCommandClass implements Listener {
 

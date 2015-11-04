@@ -6,6 +6,14 @@ import java.util.Map;
 
 import net.rerenderreality.elitebyte.main.RRRPMainClass;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.plugin.PluginManager;
+
+import com.earth2me.essentials.Essentials;
+
 @SuppressWarnings("deprecation")
 public class BigBerthaHandler {
 

@@ -1,5 +1,17 @@
 package net.rerenderreality.elitebyte.main;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
+
 public class RRRPSRPerksClass implements Listener {
 
 	/*

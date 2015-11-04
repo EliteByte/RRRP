@@ -4,6 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="/Users/EliteGaming/Desktop/Required External Libraries/Essentials.jar"/>
 	<classpathentry kind="lib" path="/Users/EliteGaming/Desktop/Required External Libraries/EssentialsGroupManager.jar"/>
-	<classpathentry kind="lib" path="/Users/EliteGaming/Dropbox/DevServer/cauldron-server.jar"/>
+	<classpathentry kind="lib" path="/Users/EliteGaming/Desktop/Required External Libraries/cauldron-server.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/EliteGaming/Desktop/Required External Libraries/libraries"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

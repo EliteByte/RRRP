@@ -1,5 +1,8 @@
 package net.rerenderreality.elitebyte.bigbertha;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
 public class BigBerthaActions {
 
 	/*

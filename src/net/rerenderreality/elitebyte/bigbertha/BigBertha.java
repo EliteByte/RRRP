@@ -5,6 +5,13 @@ import java.util.Map;
 
 import net.rerenderreality.elitebyte.main.RRRPMainClass;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChatEvent;
+
 @SuppressWarnings("deprecation")
 public class BigBertha implements Listener {
 	public Map<Player, Integer> kickWarnings = new HashMap<Player, Integer>();
